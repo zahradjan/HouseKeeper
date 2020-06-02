@@ -7,8 +7,9 @@ class ExpenseList extends Component {
                 <table className="table-bordered">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Amount</th>
+                            <th>Položka</th>
+                            <th>Počet</th>
+                            <th>Datum</th>
                         </tr>
                     </thead>
                  <tbody>

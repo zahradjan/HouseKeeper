@@ -1,7 +1,8 @@
 import React from 'react';
 import Budget from './budget/Budget';
 import './App.css';
-import Navbar from './navbar'
+import Navbar from './partials/navbar'
+import Footer from './partials/footer'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div className="container my-5">
         <Budget />
       </div>
+      <Footer />
     </div>
 
   );

@@ -5,17 +5,17 @@ class InputExpenses extends Component {
         return (
             <div className="card card-body">
                 <form>
-                    <label>Expenses</label>
+                    <label>Výdaje</label>
                     <input 
                         className="form-control"
                         name="expenseTitle"
                     />
-                    <label>Amount</label>
+                    <label>Počet</label>
                     <input 
                         className="form-control"
                         name="amount"
                     />
-                    <button className="btn btn-dark btn-block mt-3">Submit</button>
+                    <button className="btn btn-dark btn-block mt-3">Odešli</button>
                 </form>
             </div>
 
