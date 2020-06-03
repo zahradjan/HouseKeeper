@@ -38,7 +38,7 @@ class Footer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div class="container" style={divStyle}>
+                    <div class="container text-center" style={divStyle}>
 
                         <a class="fb-ic" href="https://www.youtube.com/watch?v=d1YBv2mWll0" style={textStyle}>
                             <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
@@ -59,7 +59,7 @@ class Footer extends Component {
                             <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
                         </a>
                     </div>
-                    <div class="container" style={divStyle}>
+                    <div class="container text-center" style={divStyle}>
                         <p class=" text-light d-inline lead">Studentský projekt UHK FIM LS 2020
                                 
                         </p>

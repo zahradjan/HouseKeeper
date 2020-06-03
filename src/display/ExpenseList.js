@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BudgetConsumer } from '../store';
 
 class ExpenseList extends Component {
     render() {
@@ -8,14 +9,30 @@ class ExpenseList extends Component {
                     <thead>
                         <tr>
                             <th>Položka</th>
-                            <th>Počet</th>
+                            <th>Výdaje</th>
                             <th>Datum</th>
                         </tr>
                     </thead>
-                 <tbody>
-            
-                </tbody>
-                          
+                    <BudgetConsumer>
+                        {value => {
+                            const expenseList = value.expenses.length > 0 ? (value.expenses.map((expense,index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{expense.title}</td>
+                                        <td>{expense.amount}</td>
+                                    </tr>
+                                )
+                            })
+                            ) : (<tr>
+                                <td>Nebyli zadané žádné výdaje</td>
+                                <td>0</td>
+                            </tr>
+                                )
+                            return <tbody>{expenseList}</tbody>
+                        }}
+                    </BudgetConsumer>
+
+
                 </table>
             </div>
         )
