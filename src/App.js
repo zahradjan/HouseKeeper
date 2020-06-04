@@ -9,8 +9,10 @@ function App() {
 
     <div className="App">
       <Navbar />
+      <div id="main">
       <div className="container my-5">
         <Budget />
+      </div>
       </div>
       <Footer />
     </div>
