@@ -24,7 +24,7 @@ class InputExpenses extends Component {
         this.setState({
             expenses:[
                 ...this.state.expenses,
-                {title:this.state.expenseTitle, amount: this.state.amount}
+                {title:this.state.expenseTitle, amount: this.state.amount, date: new Date().toLocaleString()}
             ],
             expenseTitle:'',
             amount:''
