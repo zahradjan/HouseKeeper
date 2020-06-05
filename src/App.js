@@ -1,11 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
+import Budget from './budget/Budget';
 import './App.css';
-import Navbar from './navbar'
+import Navbar from './partials/navbar'
+import Footer from './partials/footer'
 
 function App() {
   return (
-    <Navbar/>
+
+    <div className="App">
+      <Navbar />
+      <div className="container my-5">
+        <Budget />
+      </div>
+      <Footer />
+    </div>
+
   );
 }
 
