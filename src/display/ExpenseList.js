@@ -7,6 +7,7 @@ class ExpenseList extends Component {
     state = {
         expenseTitle: '',
         amount: '',
+        date:'',
         expenses: []
     }
 
@@ -49,7 +50,8 @@ class ExpenseList extends Component {
                             <th>Datum</th>
                         </tr>
                     </thead>
-                    {this.displayExpenses(this.state.expenses)}
+
+                   <tbody>{this.displayExpenses(this.state.expenses)}</tbody>
                 </table>
             </div>
         )
