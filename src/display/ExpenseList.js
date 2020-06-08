@@ -30,10 +30,11 @@ class ExpenseList extends Component {
         if(!expenses.length) return null;
 
         return expenses.map((expense, index) => (
+            
             <tr key={index}>
                 <td>{expense.expenseTitle}</td>
                 <td>{expense.amount}</td>
-                <td>{expense.date}</td>
+                <td>{new Date(expense.date).toLocaleString()}</td>
             </tr>
         ));
     }
