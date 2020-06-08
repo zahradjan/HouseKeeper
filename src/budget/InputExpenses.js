@@ -14,6 +14,7 @@ class InputExpenses extends Component {
             [e.target.name]:e.target.value
         })
     }
+
     handleSubmit=(dispatch,e)=>{
         e.preventDefault()
         dispatch({
@@ -40,6 +41,18 @@ class InputExpenses extends Component {
         })
     }
 
+    getExpenses = () => {
+        axios.get('/api')
+        .then((response) => {
+            const data = response.data;
+            this.setState({ expenses: data});
+            console.log('Data has been received!')
+        })
+        .catch((err) => {
+            alert('Error retrieving')
+        })
+    }
+
     submit = (event) => {
         event.preventDefault();
 
@@ -58,10 +71,15 @@ class InputExpenses extends Component {
             method: 'POST',
             data: payload
         })
+        .then(() => {
+            this.getExpenses();
+        })
         .catch(() => {
             console.log('ERROR');
         })
     };
+
+    
 
     render() {
 
@@ -70,11 +88,11 @@ class InputExpenses extends Component {
         return (
             <BudgetConsumer>  
                 {value => {
-                    /*const {dispatch} = value*/
+                    const {dispatch} = value
                     return(
                         <div className="card card-body">
-                <form /*onSubmit={this.handleSubmit.bind(this,dispatch)}*/
-                        onSubmit={this.submit}>
+                <form onSubmit={this.handleSubmit.bind(this,dispatch) && this.submit}
+                        /*onSubmit={this.submit}*/>
                     <label>Položka</label>
                     <input onChange ={this.handleInput}
                         value={this.state.expenseTitle} 

@@ -1,8 +1,44 @@
 import React, { Component } from 'react';
-import { BudgetConsumer } from '../store';
+//import { BudgetConsumer } from '../store';
+import axios from 'axios';
 
 class ExpenseList extends Component {
+
+    state = {
+        expenseTitle: '',
+        amount: '',
+        expenses: []
+    }
+
+    componentDidMount = () => {
+        this.getExpense();
+    }
+
+    getExpense = () => {
+        axios.get('/api')
+        .then((response) => {
+            const data = response.data;
+            this.setState({ expenses: data })
+        })
+        .catch((err) => {
+            alert('ERROR RETRIEVING')
+        })
+    }
+
+    displayExpenses = (expenses) => {
+        if(!expenses.length) return null;
+
+        return expenses.map((expense, index) => (
+            <tr key={index}>
+                <td>{expense.expenseTitle}</td>
+                <td>{expense.amount}</td>
+                <td>{expense.date}</td>
+            </tr>
+        ));
+    }
+
     render() {
+        
         return (
             <div className="card mt-5">
                 <table className="table-bordered">
@@ -13,26 +49,7 @@ class ExpenseList extends Component {
                             <th>Datum</th>
                         </tr>
                     </thead>
-                    <BudgetConsumer>
-                        {value => {
-                            const expenseList = value.expenses.length > 0 ? (value.expenses.map((expense,index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{expense.title}</td>
-                                        <td>{expense.amount}</td>
-                                    </tr>
-                                )
-                            })
-                            ) : (<tr>
-                                <td>Nebyli zadané žádné výdaje</td>
-                                <td>0</td>
-                            </tr>
-                                )
-                            return <tbody>{expenseList}</tbody>
-                        }}
-                    </BudgetConsumer>
-
-
+                    {this.displayExpenses(this.state.expenses)}
                 </table>
             </div>
         )
