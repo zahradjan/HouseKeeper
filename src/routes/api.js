@@ -28,4 +28,19 @@ router.post('/save', async (req, res) => {
     });
 });
  
+router.post('/saveBudget', async (req, res) => {
+    const data = req.body;
+    const newExpense = new Expense(data);
+    newExpense.save((error) => {
+        if(error) {
+            res.status(500).json({ msg: 'There was an error' })
+        } else {
+            res.json({
+                msg: 'Succesfully received'
+            })
+        }
+    });
+});
+ 
+
 module.exports = router;

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
+import axios from 'axios';
+
 const BudgetContext = React.createContext();
+
+
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -26,6 +30,21 @@ class BudgetProvider extends Component {
         expenses: [
         ],
         dispatch: action => this.setState(state => reducer(state, action))
+    }
+
+    componentDidMount = () => {
+        this.getExpense();
+    }
+
+    getExpense = () => {
+        axios.get('/api')
+        .then((response) => {
+            const data = response.data;
+            this.setState({ expenses: data })
+        })
+        .catch((err) => {
+            alert('ERROR RETRIEVING')
+        })
     }
     render() {
         return (
