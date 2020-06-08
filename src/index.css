@@ -1,7 +1,4 @@
 
-.App{
-  height: 100%;
-}
 #main{
   
   min-height: calc(100vh - 260px - 68px);
@@ -11,8 +8,10 @@
 
 
 footer{
+ 
   margin-top: auto;
-  clear: both;
+  
+  
 }
 
 
