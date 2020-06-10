@@ -41,6 +41,7 @@ class InputExpenses extends Component {
         })
     }
 
+    /*
     getExpenses = () => {
         axios.get('/expenses')
         .then((response) => {
@@ -52,6 +53,7 @@ class InputExpenses extends Component {
             alert('Error retrieving')
         })
     }
+    */
 
     submit = (event) => {
         event.preventDefault();

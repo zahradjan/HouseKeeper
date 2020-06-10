@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 const BudgetContext = React.createContext();
 
+
+
 const reducer = (state, action) => {
     switch (action.type) {
         case "ADD_BUDGET":
@@ -27,6 +29,7 @@ class BudgetProvider extends Component {
         ],
         dispatch: action => this.setState(state => reducer(state, action))
     }
+
     render() {
         return (
             <BudgetContext.Provider value={this.state}>

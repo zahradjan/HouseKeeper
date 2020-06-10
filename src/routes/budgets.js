@@ -15,8 +15,7 @@ router.get('/',(req, res) => {
 });
 
 router.post('/save', async (req, res) => {
-    const data = req.body;
-    
+    const data = req.body; 
     const newBudget = new Budget(data);
     newBudget.save((error) => {
         if(error) {
