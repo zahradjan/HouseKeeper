@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 //import { BudgetConsumer } from '../store';
 import axios from 'axios';
+import { MdEdit, MdDelete } from 'react-icons/md';
 
 class ExpenseList extends Component {
 
     state = {
         expenseTitle: '',
         amount: '',
-        date:'',
+        date: '',
         expenses: []
     }
 
@@ -17,30 +18,33 @@ class ExpenseList extends Component {
 
     getExpense = () => {
         axios.get('/api')
-        .then((response) => {
-            const data = response.data;
-            this.setState({ expenses: data })
-        })
-        .catch((err) => {
-            alert('ERROR RETRIEVING')
-        })
+            .then((response) => {
+                const data = response.data;
+                this.setState({ expenses: data })
+            })
+            .catch((err) => {
+                alert('ERROR RETRIEVING')
+            })
     }
 
     displayExpenses = (expenses) => {
-        if(!expenses.length) return null;
+        if (!expenses.length) return null;
 
         return expenses.map((expense, index) => (
-            
+
             <tr key={index}>
                 <td>{expense.expenseTitle}</td>
                 <td>{expense.amount}</td>
                 <td>{new Date(expense.date).toLocaleString()}</td>
+                <td className='text-center'><button className='delete-btn' aria-label="delete button"><MdDelete className="btn-icon" /></button></td>
+                <td className='text-center'><button className='edit-btn ' aria-label="edit button"><MdEdit className="btn-icon" /></button></td>
+
             </tr>
         ));
     }
 
     render() {
-        
+
         return (
             <div className="card mt-5">
                 <table className="table-bordered">
@@ -52,7 +56,7 @@ class ExpenseList extends Component {
                         </tr>
                     </thead>
 
-                   <tbody>{this.displayExpenses(this.state.expenses)}</tbody>
+                    <tbody>{this.displayExpenses(this.state.expenses)}</tbody>
                 </table>
             </div>
         )
