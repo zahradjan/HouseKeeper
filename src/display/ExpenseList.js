@@ -16,7 +16,7 @@ class ExpenseList extends Component {
     }
 
     getExpense = () => {
-        axios.get('/api')
+        axios.get('/expenses')
         .then((response) => {
             const data = response.data;
             this.setState({ expenses: data })
@@ -32,7 +32,7 @@ class ExpenseList extends Component {
         return expenses.map((expense, index) => (
             <tr key={index}>
                 <td>{expense.expenseTitle}</td>
-                <td>{expense.amount}</td>
+                <td>{expense.amount} ,- Kč</td>
                 <td>{expense.date}</td>
             </tr>
         ));

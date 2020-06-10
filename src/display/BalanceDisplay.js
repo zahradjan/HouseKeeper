@@ -1,7 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import { BudgetConsumer } from '../store'
 
-const BalanceDisplay = () => {
+class BalanceDisplay extends Component {
+ 
+    state = {
+        budget:'',
+        expenses: []
+    }
+
+    componentDidMount = () => {
+        this.getBudget();
+        this.getExpenses();
+        //this.totalExpenses();
+    }
+
+    getBudget = () => {
+        axios.get('/budgets')
+        .then((response) => {
+            const data = response.data[0].amount;
+            this.setState({ budget: data })
+        })
+        .catch((err) => {
+            alert('ERROR RETRIEVING BUDGET')
+        })
+    }
+
+    getExpenses = () => {
+        axios.get('/expenses')
+        .then((response) => {
+            const data = response.data;
+            console.log('EXPENSES: ', data)
+            this.setState({expenses: data})
+        })
+        .catch((err) => {
+            alert('ERROR RETRIEVING EXPENSES')
+        })
+    }
+
+render() {
+
     return (
         <BudgetConsumer>
             {value => {
@@ -16,7 +54,7 @@ const BalanceDisplay = () => {
                         <div className="card">
                             <div className="card-header">Rozpočet</div>
                             <div className="card-body">
-                                <h5 className="text-center card-title">{value.budget}</h5>
+                                <h5 className="text-center card-title">{this.state.budget}</h5>
                             </div>
                         </div>
                     </div>
@@ -32,7 +70,7 @@ const BalanceDisplay = () => {
                         <div className="card">
                             <div className="card-header"> Celkový Zůstatek</div>
                             <div className="card-body">
-                                <h5 className="text-center card-title">{value.budget - totalExpenses}</h5>
+                                <h5 className="text-center card-title">{this.state.budget - totalExpenses}</h5>
                             </div>
                         </div>
                     </div>
@@ -41,6 +79,7 @@ const BalanceDisplay = () => {
             }}
         </BudgetConsumer>
     )
+}
 }
 
 export default BalanceDisplay

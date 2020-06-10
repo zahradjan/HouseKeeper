@@ -42,10 +42,10 @@ class InputExpenses extends Component {
     }
 
     getExpenses = () => {
-        axios.get('/api')
+        axios.get('/expenses')
         .then((response) => {
             const data = response.data;
-            this.setState({ expenses: data});
+            this.setState({ expenses: data });
             console.log('Data has been received!')
         })
         .catch((err) => {
@@ -67,7 +67,7 @@ class InputExpenses extends Component {
         })
 
         axios({
-            url: 'api/save',
+            url: 'expenses/save',
             method: 'POST',
             data: payload
         })
@@ -91,9 +91,9 @@ class InputExpenses extends Component {
                     const {dispatch} = value
                     return(
                         <div className="card card-body">
-                <form onSubmit={this.handleSubmit.bind(this,dispatch) && this.submit}
-                        /*onSubmit={this.submit}*/>
-                    <label>Položka</label>
+                            <label>Položka</label>
+                <form onSubmit={this.handleSubmit.bind(this,dispatch) && this.submit}>
+                    
                     <input onChange ={this.handleInput}
                         value={this.state.expenseTitle} 
                         className="form-control"
