@@ -1,2 +1,17 @@
 
+.delete-buttons{
+    color: red;
+    background: none;
+}
+.edit-buttons{
+  
+        color: green;
+        background: none;
+
+}
+.delete-buttons:hover, .edit-buttons:hover{
+    color: black;
+    background: none;
+    transform: translateY(1px);
+}
 

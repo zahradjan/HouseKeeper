@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import { BudgetConsumer } from '../store';
 import axios from 'axios';
 import { MdEdit, MdDelete } from 'react-icons/md';
+import { IconContext } from "react-icons";
 
 class ExpenseList extends Component {
 
@@ -36,8 +37,12 @@ class ExpenseList extends Component {
                 <td>{expense.expenseTitle}</td>
                 <td>{expense.amount}</td>
                 <td>{new Date(expense.date).toLocaleString()}</td>
-                <td className='text-center'><button className='delete-btn' aria-label="delete button"><MdDelete className="btn-icon" /></button></td>
-                <td className='text-center'><button className='edit-btn ' aria-label="edit button"><MdEdit className="btn-icon" /></button></td>
+                <IconContext.Provider value={{ className: "delete-buttons" }}>
+                <td className='text-center'><button className='btn btn-link' aria-label="delete button"><MdDelete className="btn-icon" /></button></td>
+                </IconContext.Provider>
+                <IconContext.Provider value={{  className: "edit-buttons" }}>
+                <td className='text-center'><button className='btn btn-link ' aria-label="edit button"><MdEdit className="btn-icon" /></button></td>
+                </IconContext.Provider>
 
             </tr>
         ));

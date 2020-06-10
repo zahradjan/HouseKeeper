@@ -97,7 +97,8 @@ class InputExpenses extends Component {
                     <input onChange ={this.handleInput}
                         value={this.state.expenseTitle} 
                         className="form-control"
-                        name="expenseTitle"
+                        name="expenseTitle" 
+                        required
                     />
                     <label>Výdaje</label>
                     <input 
@@ -105,6 +106,7 @@ class InputExpenses extends Component {
                     value={this.state.amount} 
                         className="form-control"
                         name="amount"
+                        required
                     />
                     <button className="btn btn-dark btn-block mt-3">Submit</button>
                 </form>
