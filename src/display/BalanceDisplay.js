@@ -1,10 +1,7 @@
 import React from 'react';
 import { BudgetConsumer } from '../store'
+import axios from 'axios';
 
-// var style = {
-//     color: 'black',
-//     writable: true,
-// };
 
 
 
@@ -54,7 +51,7 @@ class BalanceDisplay extends React.Component {
                                     <div className="card-header"> Celkový Zůstatek</div>
                                     <div className="card-body">
 
-                                        <h5 className="text-center card-title" style={{ color: this.state.color }} onChange={this.changeColor} >{leftOver}</h5>
+                                        <h5 className="text-center card-title" style={{ color: this.state.color }} >{this.state.leftover}</h5>
                                     </div>
                                 </div>
                             </div>

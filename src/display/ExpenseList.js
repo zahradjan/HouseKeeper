@@ -12,10 +12,14 @@ class ExpenseList extends Component {
         date: '',
         expenses: []
     }
-
     componentDidMount = () => {
         this.getExpense();
     }
+    componentDidUpdate(prevState)  {
+        if (prevState.expenses !== this.state.expenses) {
+            this.getExpense();
+    }
+}
 
     getExpense = () => {
         axios.get('/api')

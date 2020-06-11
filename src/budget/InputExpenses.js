@@ -30,16 +30,7 @@ class InputExpenses extends Component {
         })
     }
 
-    addExpenses = () =>{
-        this.setState({
-            expenses:[
-                ...this.state.expenses,
-                {title:this.state.expenseTitle, amount: this.state.amount}
-            ],
-            expenseTitle:'',
-            amount:''
-        })
-    }
+    
 
     getExpenses = () => {
         axios.get('/api')
