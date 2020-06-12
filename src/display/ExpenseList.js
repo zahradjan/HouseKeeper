@@ -15,11 +15,11 @@ class ExpenseList extends Component {
     componentDidMount = () => {
         this.getExpense();
     }
-    componentDidUpdate(prevState)  {
+    componentDidUpdate(prevState) {
         if (prevState.expenses !== this.state.expenses) {
             this.getExpense();
+        }
     }
-}
 
     getExpense = () => {
         axios.get('/api')
@@ -31,7 +31,16 @@ class ExpenseList extends Component {
                 alert('ERROR RETRIEVING')
             })
     }
+    deleteItem = (id) => {
+        axios.post('/api/delete', { id })
+            .then(() => {
+                this.props.callbackExpenses();
+            })
+            .catch((err) => {
+                alert('ERROR RETRIEVING')
+            })
 
+    }
     displayExpenses = (expenses) => {
         if (!expenses.length) return null;
 
@@ -42,10 +51,10 @@ class ExpenseList extends Component {
                 <td>{expense.amount}</td>
                 <td>{new Date(expense.date).toLocaleString()}</td>
                 <IconContext.Provider value={{ className: "delete-buttons" }}>
-                <td className='text-center'><button className='btn btn-link' aria-label="delete button"><MdDelete className="btn-icon" /></button></td>
+                    <td className='text-center'><button className='btn btn-link' aria-label="delete button" onClick={() => this.deleteItem(expense._id)}><MdDelete className="btn-icon" /></button></td>
                 </IconContext.Provider>
-                <IconContext.Provider value={{  className: "edit-buttons" }}>
-                <td className='text-center'><button className='btn btn-link ' aria-label="edit button"><MdEdit className="btn-icon" /></button></td>
+                <IconContext.Provider value={{ className: "edit-buttons" }}>
+                    <td className='text-center'><button className='btn btn-link ' aria-label="edit button" onClick={() => this.editItem(expense._id)}><MdEdit className="btn-icon" /></button></td>
                 </IconContext.Provider>
 
             </tr>

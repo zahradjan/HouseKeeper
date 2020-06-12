@@ -1,6 +1,6 @@
 import React from 'react';
 import { BudgetConsumer } from '../store'
-import axios from 'axios';
+
 
 
 
@@ -8,25 +8,24 @@ import axios from 'axios';
 
 class BalanceDisplay extends React.Component {
     state = {
-        color: ''
-    }
-    changeColor = () => {
-        console.log('jsem tu');
-        this.setState({ color: 'red' })
+        color: '',
+
+
 
     }
+    changeColor = (leftOver) => {
+        return leftOver > 0 ? 'green' : 'red'
+    }
+
+
 
     render() {
+
         return (
             <BudgetConsumer>
                 {value => {
-                    const totalExpenses = value.expenses.length > 0 ? (
-                        value.expenses.reduce((acc, curr) => {
-                            acc += parseInt(curr.amount);
-                            return acc;
-                        }, 0)) : 0;
 
-                    const leftOver = (value.budget - totalExpenses);
+                    const leftOver = value.budget - this.props.expensesCount;
 
                     return (
                         <div className="row">
@@ -42,7 +41,7 @@ class BalanceDisplay extends React.Component {
                                 <div className="card">
                                     <div className="card-header"> Celkové Výdaje</div>
                                     <div className="card-body">
-                                        <h5 className="text-center card-title">{totalExpenses}</h5>
+                                        <h5 className="text-center card-title">{this.props.expensesCount}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +50,7 @@ class BalanceDisplay extends React.Component {
                                     <div className="card-header"> Celkový Zůstatek</div>
                                     <div className="card-body">
 
-                                        <h5 className="text-center card-title" style={{ color: this.state.color }} >{this.state.leftover}</h5>
+                                        <h5 className="text-center card-title" style={{ color: this.changeColor(leftOver) }} >{leftOver}</h5>
                                     </div>
                                 </div>
                             </div>

@@ -64,6 +64,7 @@ class InputExpenses extends Component {
         })
         .then(() => {
             this.getExpenses();
+            this.props.callbackExpenses();
         })
         .catch(() => {
             console.log('ERROR');
