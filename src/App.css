@@ -9,7 +9,8 @@
         background: none;
 
 }
-.delete-buttons:hover, .edit-buttons:hover{
+
+.delete-buttons:hover, .edit-buttons:hover, .delete-button-all:hover{
     color: black;
     background: none;
     transform: translateY(1px);

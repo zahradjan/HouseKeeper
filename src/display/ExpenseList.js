@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { BudgetConsumer } from '../store';
 import axios from 'axios';
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { IconContext } from "react-icons";
@@ -41,6 +40,18 @@ class ExpenseList extends Component {
             })
 
     }
+    deleteAll = () => {
+
+        axios.post('/api/deleteAll')
+            .then(() => {
+                this.props.callbackExpenses();
+             
+            })
+            .catch((err) => {
+                alert('ERROR RETRIEVING')
+            })
+
+    }
     displayExpenses = (expenses) => {
         if (!expenses.length) return null;
 
@@ -58,7 +69,23 @@ class ExpenseList extends Component {
                 </IconContext.Provider>
 
             </tr>
+
         ));
+    }
+    displayDAButton(expenses) {
+        if (!expenses.length) return null;
+
+        return (
+            <div className="text-center">
+
+                <button className='btn btn-danger m-3' aria-label="delete button" onClick={() => this.deleteAll()}><MdDelete className="btn-icon" /> Smazat Vše</button>
+
+            </div>
+
+        )
+
+
+
     }
 
     render() {
@@ -74,8 +101,14 @@ class ExpenseList extends Component {
                         </tr>
                     </thead>
 
-                    <tbody>{this.displayExpenses(this.state.expenses)}</tbody>
+                    <tbody>
+                        {this.displayExpenses(this.state.expenses)}
+
+
+                    </tbody>
+
                 </table>
+                {this.displayDAButton(this.state.expenses)}
             </div>
         )
     }

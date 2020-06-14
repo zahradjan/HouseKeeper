@@ -13,6 +13,9 @@ class BalanceDisplay extends React.Component {
 
 
     }
+
+    
+
     changeColor = (leftOver) => {
         return leftOver > 0 ? 'green' : 'red'
     }
