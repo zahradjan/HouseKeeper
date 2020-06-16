@@ -65,6 +65,27 @@ router.post('/save', async (req, res) => {
     });
 });
 
+router.post('/edit', async (req, res) => {
+    console.log(req.body.id);
+    const data = req.body;
+    Expense.findByIdAndUpdate(req.body.id, {
+        expenseTitle: req.body.expenseTitle,
+        amount: req.body.amount,
+        date: Date.now()
+    }, (error) => {
+        if (error) {
+            res.status(500).json({ msg: 'There was an error' })
+        } else {
+            res.json({
+                msg: 'Succesfully received'
+            })
+        }
+
+    })
+
+});
+
+
 router.post('/saveBudget', async (req, res) => {
     const data = req.body;
     const newExpense = new Expense(data);

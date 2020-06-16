@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const Budget = () => {
     const [expensesCount, setExpensesCount] = React.useState(0);
+    const [expenseItem, setExpenseItem] = React.useState('');
     const callbackExpenses = () => {
         getExpenseCount();
     }
@@ -22,14 +23,20 @@ const Budget = () => {
                 alert('ERROR RETRIEVING')
             })
     }
+    const  editExpense =(expense) =>{
+        setExpenseItem(expense)
+    }
+
+
+    
     return (
         <div className="row">
             <div className="col-lg-4">
                 <InputBudget />
-                <InputExpenses callbackExpenses={callbackExpenses} />
+                <InputExpenses callbackExpenses={callbackExpenses}  expenseItem={expenseItem}/>
             </div>
             <div className="col-lg-8">
-                <DisplayBudget expensesCount={expensesCount} callbackExpenses={callbackExpenses} />
+                <DisplayBudget  expensesCount={expensesCount} editExpense={editExpense} callbackExpenses={callbackExpenses} />
             </div>
         </div>
 

@@ -40,6 +40,9 @@ class ExpenseList extends Component {
             })
 
     }
+    editItem(expense){
+        this.props.editExpense(expense);
+    }
     deleteAll = () => {
 
         axios.post('/api/deleteAll')
@@ -65,7 +68,7 @@ class ExpenseList extends Component {
                     <td className='text-center'><button className='btn btn-link' aria-label="delete button" onClick={() => this.deleteItem(expense._id)}><MdDelete className="btn-icon" /></button></td>
                 </IconContext.Provider>
                 <IconContext.Provider value={{ className: "edit-buttons" }}>
-                    <td className='text-center'><button className='btn btn-link ' aria-label="edit button" onClick={() => this.editItem(expense._id)}><MdEdit className="btn-icon" /></button></td>
+                    <td className='text-center'><button className='btn btn-link ' aria-label="edit button" onClick={() => this.editItem(expense)}><MdEdit className="btn-icon" /></button></td>
                 </IconContext.Provider>
 
             </tr>

@@ -1,26 +1,36 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {BudgetConsumer} from '../store'
+
 
 class InputExpenses extends Component {
+   
     state = {
-        expenses:[],
-        expenseTitle:'',
-        amount:''
+        expenses: [],
+        expenseTitle: '',
+        amount: 0,
     }
 
-    handleInput = (e) =>{
+    handleInput = (e) => {
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
+   
+    
 
-    handleSubmit=(dispatch,e)=>{
-        e.preventDefault()
-        dispatch({
-            type:"ADD_EXPENSES",
-            expenses:this.state.expenses
-        })
+    componentDidUpdate(prevProps) {
+        if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle) {
+            console.log('id: ' + this.props.expenseItem._id)
+            console.log('title: ' + this.props.expenseItem.expenseTitle)
+            console.log('amount: ' + this.props.expenseItem.amount)
+            this.setState({
+                expenseTitle: this.props.expenseItem.expenseTitle,
+                amount: this.props.expenseItem.amount
+            })
+           
+           
+        }
+
     }
 
     reset = () => {
@@ -30,18 +40,18 @@ class InputExpenses extends Component {
         })
     }
 
-    
+
 
     getExpenses = () => {
         axios.get('/api')
-        .then((response) => {
-            const data = response.data;
-            this.setState({ expenses: data});
-            console.log('Data has been received!')
-        })
-        .catch((err) => {
-            alert('Error retrieving')
-        })
+            .then((response) => {
+                const data = response.data;
+                this.setState({ expenses: data });
+                console.log('Data has been received!')
+            })
+            .catch((err) => {
+                alert('Error retrieving')
+            })
     }
 
     submit = (event) => {
@@ -62,50 +72,99 @@ class InputExpenses extends Component {
             method: 'POST',
             data: payload
         })
-        .then(() => {
-            this.getExpenses();
-            this.props.callbackExpenses();
-        })
-        .catch(() => {
-            console.log('ERROR');
-        })
+            .then(() => {
+                this.getExpenses();
+                this.props.callbackExpenses();
+            })
+            .catch(() => {
+                console.log('ERROR');
+            })
     };
 
+
+    edit = (event) => {
+        event.preventDefault();
+
+        const payload = {
+            id:this.props.expenseItem._id,
+            expenseTitle: this.state.expenseTitle,
+            amount: this.state.amount
+        }
+
+        this.setState({
+            expenseTitle: '',
+            amount: ''
+        })
+
+        axios({
+            url: 'api/edit',
+            method: 'POST',
+            data: payload
+        })
+            .then(() => {
+                this.getExpenses();
+                this.props.callbackExpenses();
+            })
+            .catch(() => {
+                console.log('ERROR');
+            })
     
+    };
 
     render() {
 
         console.log('State: ', this.state);
 
         return (
-            <BudgetConsumer>  
-                {value => {
-                    const {dispatch} = value
-                    return(
-                        <div className="card card-body">
-                <form onSubmit={this.handleSubmit.bind(this,dispatch) && this.submit}
-                        /*onSubmit={this.submit}*/>
+
+
+
+
+            <div className="card card-body">
+                <form onSubmit={this.submit}
+                >
                     <label>Položka</label>
-                    <input onChange ={this.handleInput}
-                        value={this.state.expenseTitle} 
+                    <input onChange={this.handleInput}
+                        value={this.state.expenseTitle}
                         className="form-control"
-                        name="expenseTitle" 
+                        name="expenseTitle"
                         required
                     />
                     <label>Výdaje</label>
-                    <input 
-                    onChange ={this.handleInput}
-                    value={this.state.amount} 
+                    <input
+                        onChange={this.handleInput}
+                        value={this.state.amount}
                         className="form-control"
                         name="amount"
                         required
                     />
-                    <button className="btn btn-dark btn-block mt-3">Submit</button>
+                    <button type='submit' className="btn btn-dark btn-block mt-3">Submit</button>
+                    <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
+                </form>
+                <form onSubmit={this.edit}
+                >
+                    <label>Položka</label>
+                    <input onChange={this.handleInput}
+                        value={this.state.expenseTitle}
+                        className="form-control"
+                        name="expenseTitle"
+                        required
+                    />
+                    <label>Výdaje</label>
+                    <input
+                        onChange={this.handleInput}
+                        value={this.state.amount}
+                        className="form-control"
+                        name="amount"
+                        required
+                    />
+                    <button type='submit' className="btn btn-dark btn-block mt-3">Submit</button>
+                    <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
                 </form>
             </div>
-                    )
-                }}
-            </BudgetConsumer>
+
+
+
         )
     }
 }
