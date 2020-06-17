@@ -62,7 +62,7 @@ class InputExpenses extends Component {
             data: payload
         })
             .then(() => {
-                this.getExpenses();
+                
                 this.props.callbackExpenses();
             })
             .catch(() => {
@@ -92,7 +92,7 @@ class InputExpenses extends Component {
             data: payload
         })
             .then(() => {
-                this.getExpenses();
+              
                 this.props.callbackExpenses();
 
             })
