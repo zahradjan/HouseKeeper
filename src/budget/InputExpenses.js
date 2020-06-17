@@ -136,6 +136,7 @@ class InputExpenses extends Component {
                     <input onChange={this.handleInput}
                         value={this.state.expenseTitle}
                         className="form-control"
+                        name="expenseTitle"
                         required
                     />
                     <label>Výdaje</label>
