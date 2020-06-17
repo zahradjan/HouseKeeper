@@ -3,11 +3,12 @@ import axios from 'axios';
 
 
 class InputExpenses extends Component {
-   
+
     state = {
         expenses: [],
         expenseTitle: '',
         amount: 0,
+        id: '',
     }
 
     handleInput = (e) => {
@@ -15,8 +16,8 @@ class InputExpenses extends Component {
             [e.target.name]: e.target.value
         })
     }
-   
-    
+
+
 
     componentDidUpdate(prevProps) {
         if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle) {
@@ -25,10 +26,11 @@ class InputExpenses extends Component {
             console.log('amount: ' + this.props.expenseItem.amount)
             this.setState({
                 expenseTitle: this.props.expenseItem.expenseTitle,
-                amount: this.props.expenseItem.amount
+                amount: this.props.expenseItem.amount,
+                id: this.props.expenseItem._id,
             })
-           
-           
+
+
         }
 
     }
@@ -36,22 +38,9 @@ class InputExpenses extends Component {
     reset = () => {
         this.setState({
             expenseTitle: '',
-            amount: ''
+            amount: 0,
+            id: '',
         })
-    }
-
-
-
-    getExpenses = () => {
-        axios.get('/api')
-            .then((response) => {
-                const data = response.data;
-                this.setState({ expenses: data });
-                console.log('Data has been received!')
-            })
-            .catch((err) => {
-                alert('Error retrieving')
-            })
     }
 
     submit = (event) => {
@@ -86,14 +75,15 @@ class InputExpenses extends Component {
         event.preventDefault();
 
         const payload = {
-            id:this.props.expenseItem._id,
+            id: this.props.expenseItem._id,
             expenseTitle: this.state.expenseTitle,
             amount: this.state.amount
         }
 
         this.setState({
             expenseTitle: '',
-            amount: ''
+            amount: 0,
+            id: '',
         })
 
         axios({
@@ -104,12 +94,89 @@ class InputExpenses extends Component {
             .then(() => {
                 this.getExpenses();
                 this.props.callbackExpenses();
+
             })
             .catch(() => {
                 console.log('ERROR');
             })
-    
+
     };
+    displaySubmitForm() {
+        return (
+            <form onSubmit={this.submit}
+            >
+                <label>Položka</label>
+                <input onChange={this.handleInput}
+                    value={this.state.expenseTitle}
+                    className="form-control"
+                    name="expenseTitle"
+                    required
+                />
+                <label>Výdaje</label>
+                <input
+                    onChange={this.handleInput}
+                    value={this.state.amount}
+                    className="form-control"
+                    name="amount"
+                    required
+                    type='number'
+                    min='1'
+                />
+                <button type='submit' className="btn btn-dark btn-block mt-3">Submit</button>
+                <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
+            </form>
+        )
+    }
+
+    displayForm() {
+        if (this.state.id === this.props.expenseItem._id) {
+            return (
+                <form onSubmit={this.edit}>
+                    <label>Položka</label>
+                    <input onChange={this.handleInput}
+                        value={this.state.expenseTitle}
+                        className="form-control"
+                        required
+                    />
+                    <label>Výdaje</label>
+                    <input
+                        onChange={this.handleInput}
+                        value={this.state.amount}
+                        className="form-control"
+                        name="amount"
+                        required
+                    />
+                    <button type='submit' className="btn btn-dark btn-block mt-3">Uprav</button>
+                    <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
+                </form>
+            )
+        }
+
+        return (
+            <form onSubmit={this.submit}>
+                <label>Položka</label>
+                <input onChange={this.handleInput}
+                    value={this.state.expenseTitle}
+                    className="form-control"
+                    name="expenseTitle"
+                    required
+                />
+                <label>Výdaje</label>
+                <input
+                    onChange={this.handleInput}
+                    value={this.state.amount}
+                    className="form-control"
+                    name="amount"
+                    required
+                    type='number'
+                    min='1'
+                />
+                <button type='submit' className="btn btn-dark btn-block mt-3">Odešli</button>
+                <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
+            </form>
+        )
+    }
+
 
     render() {
 
@@ -117,50 +184,8 @@ class InputExpenses extends Component {
 
         return (
 
-
-
-
             <div className="card card-body">
-                <form onSubmit={this.submit}
-                >
-                    <label>Položka</label>
-                    <input onChange={this.handleInput}
-                        value={this.state.expenseTitle}
-                        className="form-control"
-                        name="expenseTitle"
-                        required
-                    />
-                    <label>Výdaje</label>
-                    <input
-                        onChange={this.handleInput}
-                        value={this.state.amount}
-                        className="form-control"
-                        name="amount"
-                        required
-                    />
-                    <button type='submit' className="btn btn-dark btn-block mt-3">Submit</button>
-                    <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
-                </form>
-                <form onSubmit={this.edit}
-                >
-                    <label>Položka</label>
-                    <input onChange={this.handleInput}
-                        value={this.state.expenseTitle}
-                        className="form-control"
-                        name="expenseTitle"
-                        required
-                    />
-                    <label>Výdaje</label>
-                    <input
-                        onChange={this.handleInput}
-                        value={this.state.amount}
-                        className="form-control"
-                        name="amount"
-                        required
-                    />
-                    <button type='submit' className="btn btn-dark btn-block mt-3">Submit</button>
-                    <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
-                </form>
+                {this.displayForm()}
             </div>
 
 
