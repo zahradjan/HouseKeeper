@@ -26,3 +26,12 @@ footer{
   
   
 }
+img {
+  background: none;
+  margin-right: 20px;
+  
+}
+
+.navbar>.container{
+  justify-content: start;
+}
