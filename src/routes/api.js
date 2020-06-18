@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const Expense = require('../models/expense')
+const Budget = require('../models/budget');
+const budget = require('../models/budget');
 
 router.get('/', (req, res) => {
     Expense.find({})
@@ -13,6 +15,7 @@ router.get('/', (req, res) => {
             console.log('error: ', error);
         });
 });
+
 router.post('/delete', (req, res) => {
     Expense.deleteOne({ _id: req.body.id }, function (err, result) {
         if (err) {
@@ -85,20 +88,50 @@ router.post('/edit', async (req, res) => {
 
 });
 
-
-router.post('/saveBudget', async (req, res) => {
-    const data = req.body;
-    const newExpense = new Expense(data);
-    newExpense.save((error) => {
-        if (error) {
-            res.status(500).json({ msg: 'There was an error' })
-        } else {
-            res.json({
-                msg: 'Succesfully received'
-            })
-        }
-    });
+router.get('/budget', (req, res) => {
+    Budget.findOne({})
+        .then((data) => {
+            //console.log('Data: ', data);
+            res.json(data);
+        })
+        .catch((error) => {
+            console.log('error: ', error);
+        });
 });
+
+//dodelat aby se prepisoval ten stavajici :)
+router.post('/budget/save', async (req, res) => {
+    const data = req.body;
+    const newBudget = new Budget(data);
+    const oldBudget = (await Budget.findOne())
+
+    if (oldBudget !== null) {
+        oldBudget.overwrite(newBudget);
+        oldBudget.save((error) => {
+            if (error) {
+                res.status(500).json({ msg: 'There was an error' })
+            } else {
+                res.json({
+                    msg: 'Succesfully received'
+                })
+            }
+        })
+    } else {
+
+        newBudget.save((error) => {
+            if (error) {
+                res.status(500).json({ msg: 'There was an error' })
+            } else {
+                res.json({
+                    msg: 'Succesfully received'
+                })
+            }
+        })
+    }
+})
+
+
+
 
 
 module.exports = router;

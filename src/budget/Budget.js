@@ -32,7 +32,7 @@ const Budget = () => {
     return (
         <div className="row">
             <div className="col-lg-4">
-                <InputBudget />
+                <InputBudget callbackExpenses={callbackExpenses}/>
                 <InputExpenses callbackExpenses={callbackExpenses}  expenseItem={expenseItem}/>
             </div>
             <div className="col-lg-8">

@@ -1,45 +1,57 @@
 import React, { Component } from 'react';
-import {BudgetConsumer} from '../store'
+import axios from 'axios';
 
 
 class InputBudget extends Component {
     state = {
-        budget:''
+        amount: 0,
     }
     handleInput = (e) => {
-        this.setState({budget: e.target.value})
+        this.setState({ amount: e.target.value })
     }
-    handleSubmit = (dispatch,e) => {
-        e.preventDefault()
-        dispatch({
-            type:"ADD_BUDGET",
-            budget:this.state.budget
+
+    submit = (event) => {
+        event.preventDefault();
+
+        const payload = {
+            amount: this.state.amount
+        }
+
+        this.setState({
+            amount: 0,
         })
-    }
+
+        axios({
+            url: 'api/budget/save',
+            method: 'POST',
+            data: payload
+        })
+            .then(() => {
+                this.props.callbackExpenses();
+            })
+            .catch(() => {
+                console.log('ERROR');
+            })
+    };
+
 
     render() {
         return (
-            <BudgetConsumer>
-                {value => {
-                    const {dispatch} = value
-                    return (
-                        <div className="card card-body mb-3">
-                        <label>Rozpočet</label>
-                        <form className="form-inline">
-                            <input 
-                                onChange={this.handleInput}
-                                value={this.state.budget}
-                                className="form-control mr-2"
-                                type="number"
-                            />
-                            <button onClick={this.handleSubmit.bind(this,dispatch)} className="btn btn-dark">Odešli</button>
-                        </form>
-                    </div>
-                    )
-                }}
-            </BudgetConsumer>
-           
+            <div className="card card-body mb-3">
+                <label>Rozpočet</label>
+                <form onSubmit={this.submit} className="form-inline">
+                    <input
+                        onChange={this.handleInput}
+                        value={this.state.budget}
+                        className="form-control mr-2"
+                        type="number"
+                    />
+                    <button type='submit' className="btn btn-dark">Odešli</button>
+                </form>
+            </div>
         )
+
+
     }
 }
 

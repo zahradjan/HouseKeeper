@@ -46,6 +46,16 @@ class BudgetProvider extends Component {
             alert('ERROR RETRIEVING')
         })
     }
+    getExpense = () => {
+        axios.get('/api/budget')
+        .then((response) => {
+            const data = response.data;
+            this.setState({ budget: data })
+        })
+        .catch((err) => {
+            alert('ERROR RETRIEVING')
+        })
+    }
     render() {
         return (
             <BudgetContext.Provider value={this.state}>
