@@ -21,9 +21,6 @@ class InputExpenses extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle) {
-            console.log('id: ' + this.props.expenseItem._id)
-            console.log('title: ' + this.props.expenseItem.expenseTitle)
-            console.log('amount: ' + this.props.expenseItem.amount)
             this.setState({
                 expenseTitle: this.props.expenseItem.expenseTitle,
                 amount: this.props.expenseItem.amount,
@@ -101,32 +98,6 @@ class InputExpenses extends Component {
             })
 
     };
-    displaySubmitForm() {
-        return (
-            <form onSubmit={this.submit}
-            >
-                <label>Položka</label>
-                <input onChange={this.handleInput}
-                    value={this.state.expenseTitle}
-                    className="form-control"
-                    name="expenseTitle"
-                    required
-                />
-                <label>Výdaje</label>
-                <input
-                    onChange={this.handleInput}
-                    value={this.state.amount}
-                    className="form-control"
-                    name="amount"
-                    required
-                    type='number'
-                    min='1'
-                />
-                <button type='submit' className="btn btn-dark btn-block mt-3">Submit</button>
-                <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
-            </form>
-        )
-    }
 
     displayForm() {
         if (this.state.id === this.props.expenseItem._id) {

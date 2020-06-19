@@ -3,12 +3,10 @@ const router = express.Router();
 
 const Expense = require('../models/expense')
 const Budget = require('../models/budget');
-const budget = require('../models/budget');
 
 router.get('/', (req, res) => {
     Expense.find({})
         .then((data) => {
-            //console.log('Data: ', data);
             res.json(data);
         })
         .catch((error) => {
@@ -68,9 +66,7 @@ router.post('/save', async (req, res) => {
     });
 });
 
-router.post('/edit', async (req, res) => {
-    console.log(req.body.id);
-    const data = req.body;
+router.post('/edit', (req, res) => {
     Expense.findByIdAndUpdate(req.body.id, {
         expenseTitle: req.body.expenseTitle,
         amount: req.body.amount,
@@ -91,7 +87,6 @@ router.post('/edit', async (req, res) => {
 router.get('/budget', (req, res) => {
     Budget.findOne({})
         .then((data) => {
-            //console.log('Data: ', data);
             res.json(data);
         })
         .catch((error) => {
@@ -99,7 +94,6 @@ router.get('/budget', (req, res) => {
         });
 });
 
-//dodelat aby se prepisoval ten stavajici :)
 router.post('/budget/save', async (req, res) => {
     const data = req.body;
     const newBudget = new Budget(data);
