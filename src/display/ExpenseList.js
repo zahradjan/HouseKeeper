@@ -58,6 +58,8 @@ class ExpenseList extends Component {
     displayExpenses = (expenses) => {
         if (!expenses.length) return null;
 
+        expenses.sort((a,b) => new Date(a.date)-new Date(b.date)).reverse()
+      
         return expenses.map((expense, index) => (
 
             <tr key={index}>
