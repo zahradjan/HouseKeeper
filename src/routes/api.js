@@ -25,7 +25,6 @@ router.post('/delete', (req, res) => {
 });
 
 router.post('/deleteAll', (req, res) => {
-    console.log('jsem tady');
     Expense.deleteMany({}, function (err, result) {
         if (err) {
             res.send(err);

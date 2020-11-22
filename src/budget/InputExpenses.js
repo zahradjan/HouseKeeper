@@ -17,10 +17,10 @@ class InputExpenses extends Component {
         })
     }
 
-
+    
 
     componentDidUpdate(prevProps) {
-        if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle) {
+        if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle ) {
             this.setState({
                 expenseTitle: this.props.expenseItem.expenseTitle,
                 amount: this.props.expenseItem.amount,
