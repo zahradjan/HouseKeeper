@@ -23,7 +23,7 @@ class BalanceDisplay extends React.Component {
     }
 
     getBudget = () => {
-        axios.get('/api/budget')
+        axios.get('/budget')
             .then((response) => {
                 const data = response.data.amount;
                 this.setState({ amount: data })

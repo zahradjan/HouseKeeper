@@ -21,7 +21,7 @@ class ExpenseList extends Component {
     }
 
     getExpense = () => {
-        axios.get('/api')
+        axios.get('/expense/')
             .then((response) => {
                 const data = response.data;
                 this.setState({ expenses: data })
@@ -31,7 +31,7 @@ class ExpenseList extends Component {
             })
     }
     deleteItem = (id) => {
-        axios.post('/api/delete', { id })
+        axios.post('/expense/delete', { id })
             .then(() => {
                 this.props.callbackExpenses();
             })
@@ -45,7 +45,7 @@ class ExpenseList extends Component {
     }
     deleteAll = () => {
 
-        axios.post('/api/deleteAll')
+        axios.post('/expense/deleteAll')
             .then(() => {
                 this.props.callbackExpenses();
              

@@ -22,7 +22,7 @@ class InputBudget extends Component {
         })
 
         axios({
-            url: 'api/budget/save',
+            url: 'budget/save',
             method: 'POST',
             data: payload
         })

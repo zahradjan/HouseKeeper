@@ -14,7 +14,7 @@ const Budget = () => {
         getExpenseCount();
     }, [])
     const getExpenseCount = () => {
-        axios.get('/api/count')
+        axios.get('/expense/count')
             .then((response) => {
                 const data = response.data;
                 setExpensesCount(data);

@@ -54,7 +54,7 @@ class InputExpenses extends Component {
         })
 
         axios({
-            url: 'api/save',
+            url: 'expense/save',
             method: 'POST',
             data: payload
         })
@@ -84,7 +84,7 @@ class InputExpenses extends Component {
         })
 
         axios({
-            url: 'api/edit',
+            url: 'expense/edit',
             method: 'POST',
             data: payload
         })

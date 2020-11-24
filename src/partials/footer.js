@@ -17,21 +17,11 @@ class Footer extends Component {
                 <div className="jumbotron jumbotron-fluid bg-secondary p-4 mt-5 mb-2">
                     <div className="container">
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col">
                                 <div className="card bg-secondary border-0">
                                     <div className="card-body text-light text-center">
                                         <h2 className="card-title text-white display-6">Jan Zahradník</h2>
 
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div className="col-6">
-                                <div className="card bg-secondary border-0">
-                                    <div className="card-body text-center">
-                                    <h2 className="card-title text-white display-6">Tomáš Baier</h2>
 
                                     </div>
                                 </div>
@@ -60,7 +50,7 @@ class Footer extends Component {
                         </a>
                     </div>
                     <div className="container text-center" style={divStyle}>
-                        <p className=" text-light d-inline lead">Studentský projekt UHK FIM LS 2020
+                        <p className=" text-light d-inline lead">Studentský projekt UHK FIM ZS 2020
                                 
                         </p>
                     </div>

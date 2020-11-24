@@ -5,7 +5,8 @@ const path = require('path');
 const app = express();
 const PORT = 4000;
 
-const routes = require('./src/routes/api')
+const budgetRouter = require('./src/routes/budget')
+const expenseRouter = require('./src/routes/expense')
 
 mongoose.connect('mongodb://localhost/calculator', {
     useNewUrlParser: true,
@@ -19,6 +20,7 @@ mongoose.connection.on('connected', () => {
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use('/api', routes);
-
+// app.use('/api', routes);
+app.use('/budget', budgetRouter)
+app.use('/expense', expenseRouter)
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
