@@ -1,12 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
-
+const passport = require('passport');
 const app = express();
 const PORT = 4000;
+const methodOverride = require('method-override')
+const flash = require('connect-flash');
+const session = require('express-session');
 
 const budgetRouter = require('./src/routes/budget')
 const expenseRouter = require('./src/routes/expense')
+const userRouter = require('./src/routes/users')
+
+
+const { ensureAuthenticated } = require('./src/config/auth');
+
+// Passport konfigurace
+require('./src/config/passport')(passport);
+
 
 mongoose.connect('mongodb://localhost/calculator', {
     useNewUrlParser: true,
@@ -20,7 +30,31 @@ mongoose.connection.on('connected', () => {
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-// app.use('/api', routes);
+// Express nastavení session
+app.use(
+    session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+    })
+  );
+
+// Pouziti flash modulu
+app.use(flash());
+
+// Passport inicilizace s použitím session
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(methodOverride('_method'))
+app.use(express.json())
+app.use('/users',userRouter);
 app.use('/budget', budgetRouter)
 app.use('/expense', expenseRouter)
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
+
+
+app.get('/', ensureAuthenticated, async (req, res) => {
+    const articles = await Article.find().sort({ createdAt: 'desc' })
+    res.render('articles/index', { articles: articles, name:req.user.name })
+})

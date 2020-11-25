@@ -1,8 +1,8 @@
 import React from 'react';
-import Budget from './budget/Budget';
+import Budget from './views/budget/Budget';
 import './App.css';
-import Navbar from './partials/navbar'
-import Footer from './partials/footer'
+import Navbar from './views/partials/navbar'
+import Footer from './views/partials/footer'
 
 function App() {
   return (
