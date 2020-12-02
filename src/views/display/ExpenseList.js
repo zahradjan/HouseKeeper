@@ -82,9 +82,9 @@ class ExpenseList extends Component {
 
         return (
             <div className="text-center">
-
+                  <IconContext.Provider value={{ className: "delete-button-all" }}>
                 <button className='btn btn-danger m-3' aria-label="delete button" onClick={() => this.deleteAll()}><MdDelete className="btn-icon" /> Smazat Vše</button>
-
+                </IconContext.Provider>
             </div>
 
         )

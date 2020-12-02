@@ -5,7 +5,7 @@ class Navbar extends Component {
         return (<div className="navbar navbar-light bg-dark">
             <div className="container">
                 <img  src="calc-icon.png" alt="Calc-icon" width="35" height="40"></img>
-                <h2 className="text-white">Kalkulátor výdajů v domácnosti</h2>
+                <h2 className="text-white">Pomocník v domácnosti</h2>
             </div>
         </div>
         )

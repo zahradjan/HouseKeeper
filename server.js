@@ -6,6 +6,7 @@ const PORT = 4000;
 const methodOverride = require('method-override')
 const flash = require('connect-flash');
 const session = require('express-session');
+const Budget = require('./src/models/budget')
 
 const budgetRouter = require('./src/routes/budget')
 const expenseRouter = require('./src/routes/expense')
@@ -55,6 +56,11 @@ app.listen(PORT, console.log(`Server is starting at ${PORT}`));
 
 
 app.get('/', ensureAuthenticated, async (req, res) => {
-    const articles = await Article.find().sort({ createdAt: 'desc' })
-    res.render('articles/index', { articles: articles, name:req.user.name })
+  Budget.findOne({})
+  .then((data) => {
+      res.json(data);
+  })
+  .catch((error) => {
+      console.log('error: ', error);
+  });
 })
