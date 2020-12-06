@@ -11,12 +11,13 @@ const Budget = require('./src/models/budget')
 const budgetRouter = require('./src/routes/budget')
 const expenseRouter = require('./src/routes/expense')
 const userRouter = require('./src/routes/users')
+const noteRouter = require('./src/routes/notes')
 
 
 const { ensureAuthenticated } = require('./src/config/auth');
 
-// Passport konfigurace
-require('./src/config/passport')(passport);
+// // Passport konfigurace
+// require('./src/config/passport')(passport);
 
 
 mongoose.connect('mongodb://localhost/calculator', {
@@ -43,24 +44,25 @@ app.use(
 // Pouziti flash modulu
 app.use(flash());
 
-// Passport inicilizace s použitím session
-app.use(passport.initialize());
-app.use(passport.session());
+// // Passport inicilizace s použitím session
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(methodOverride('_method'))
 app.use(express.json())
-app.use('/users',userRouter);
+// app.use('/users',userRouter);
 app.use('/budget', budgetRouter)
 app.use('/expense', expenseRouter)
+app.use('/note', noteRouter)
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
 
 
-app.get('/', ensureAuthenticated, async (req, res) => {
-  Budget.findOne({})
-  .then((data) => {
-      res.json(data);
-  })
-  .catch((error) => {
-      console.log('error: ', error);
-  });
-})
+// app.get('/', ensureAuthenticated, async (req, res) => {
+//   Budget.findOne({})
+//   .then((data) => {
+//       res.json(data);
+//   })
+//   .catch((error) => {
+//       console.log('error: ', error);
+//   });
+// })

@@ -14,15 +14,12 @@ function App() {
         <div className="container my-5">
           <Budget />
         </div>
-        
         <div className="container my-5">
           <Notes/>
           </div>
-      
       </div>
       <Footer />
     </div>
-
   );
 }
 
