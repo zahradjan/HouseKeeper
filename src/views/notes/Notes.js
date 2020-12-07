@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IconContext } from "react-icons";
 import { MdAddBox } from "react-icons/md";
-import InputNotes from './InputNotes';
-import NotesList from './NotesList';
+import DisplayNotes from '../display/DisplayNotes';
 
-class Notes extends Component {
+const Notes = () => {
+
+   const  [noteItem, setNoteItem] = React.useState('');
+
+   const  editNotes =(note) =>{
+    setNoteItem(note)
+}
 
 
-    displayNotes = () => {
-        return (
+    return (
+        <div className="row">
+            <div className="col">
             <div className="card card-body mb-3">
                 <div className="row">
                     <div className="col">
@@ -20,28 +26,14 @@ class Notes extends Component {
                         </IconContext.Provider>
                     </div>
                 </div>
-                <div className="card card-body mb-3">
-                    <InputNotes />
 
-                    <NotesList />
-                </div>
+                <DisplayNotes editNotes={editNotes}  noteItem={noteItem} />
+
 
             </div>
-
-
-
-        )
-    }
-
-    render() {
-        return (
-            <div className="row">
-                <div className="col">
-                    {this.displayNotes()}
-                </div>
-            </div >
-        )
-    }
+            </div>
+        </div >
+    )
 }
 
 export default Notes

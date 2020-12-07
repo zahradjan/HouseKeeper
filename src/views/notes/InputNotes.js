@@ -17,20 +17,20 @@ class InputNotes extends Component {
         })
     }
 
-    
-
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.noteItem.noteTitle !== this.props.noteItem.noteTitle ) {
-    //         this.setState({
-    //             noteTitle: this.props.noteItem.noteTitle,
-    //             description: this.props.noteItem.description,
-    //             id: this.props.noteItem._id,
-    //         })
 
 
-    //     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.noteItem.noteTitle !== this.props.noteItem.noteTitle) {
+            this.setState({
+                noteTitle: this.props.noteItem.noteTitle,
+                description: this.props.noteItem.description,
+                id: this.props.noteItem._id,
+            })
 
-    // }
+
+        }
+
+    }
 
     reset = () => {
         this.setState({
@@ -59,7 +59,7 @@ class InputNotes extends Component {
             data: payload
         })
             .then(() => {
-                
+
                 // this.props.callbackExpenses();
             })
             .catch(() => {
@@ -79,7 +79,7 @@ class InputNotes extends Component {
 
         this.setState({
             noteTitle: '',
-            description: 0,
+            description: '',
             id: '',
         })
 
@@ -89,7 +89,7 @@ class InputNotes extends Component {
             data: payload
         })
             .then(() => {
-              
+
                 // this.props.callbackExpenses();
 
             })
@@ -100,29 +100,29 @@ class InputNotes extends Component {
     };
 
     displayForm() {
-        // if (this.state.id === this.props.noteItem._id) {
-        //     return (
-        //         <form onSubmit={this.edit}>
-        //             <label>Položka</label>
-        //             <input onChange={this.handleInput}
-        //                 value={this.state.noteTitle}
-        //                 className="form-control"
-        //                 name="noteTitle"
-        //                 required
-        //             />
-        //             <label>Výdaje</label>
-        //             <input
-        //                 onChange={this.handleInput}
-        //                 value={this.state.description}
-        //                 className="form-control"
-        //                 name="description"
-        //                 required
-        //             />
-        //             <button type='submit' className="btn btn-dark btn-block mt-3">Uprav</button>
-        //             <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
-        //         </form>
-        //     )
-        // }
+        if (this.state.id === this.props.noteItem._id) {
+            return (
+                <form onSubmit={this.edit}>
+                    <label>Položka</label>
+                    <input onChange={this.handleInput}
+                        value={this.state.noteTitle}
+                        className="form-control"
+                        name="noteTitle"
+                        required
+                    />
+                    <label>Výdaje</label>
+                    <input
+                        onChange={this.handleInput}
+                        value={this.state.description}
+                        className="form-control"
+                        name="description"
+                        required
+                    />
+                    <button type='submit' className="btn btn-dark btn-block mt-3">Uprav</button>
+                    <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>
+                </form>
+            )
+        }
 
         return (
             <form onSubmit={this.submit}>
@@ -134,12 +134,12 @@ class InputNotes extends Component {
                     required
                 />
                 <label>Popis</label>
-                <textarea 
+                <textarea
                     onChange={this.handleInput}
                     value={this.state.description}
                     className="form-control"
                     name="description"
-                    required                    
+                    required
                 />
                 <button type='submit' className="btn btn-dark btn-block mt-3">Odešli</button>
                 <button type='reset' onClick={this.reset} className="btn btn-secondary btn-block mt-3">Reset</button>

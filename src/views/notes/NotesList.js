@@ -58,16 +58,19 @@ class NotesList extends Component {
     displayNotes = (notes) => {
         if (notes.length === null) return
 
+        notes.sort((a,b) => new Date(a.date)-new Date(b.date)).reverse()
+      
         return (
             notes.map((note, index) => (
                 <div className="card mt-5">
                     <div className="card-body" key={index}>
 
                         <h4 className="card-title">{note.noteTitle}</h4>
-                        <div className="card-text mb-2"></div>
+                        <div className="card-text mb-2">{new Date(note.date).toLocaleString()}</div>
 
-                        <div className="card-subtitle text-muted mb-2"></div>
+                        {/* <div className="card-subtitle text-muted mb-2"></div> */}
                         <div className="card-text mb-2">{note.description}</div>
+                      
                      
                         {/* <IconContext.Provider value={{ className: "edit-buttons" }}> */}
                             <button className='btn btn-success' aria-label="edit button" onClick={() => this.editItem(note)}><MdEdit /> Upravit</button>
@@ -84,7 +87,7 @@ class NotesList extends Component {
 
     }
     displayDAButton(notes) {
-
+        if (notes.length === null) return
 
         return (
             <div className="text-center">

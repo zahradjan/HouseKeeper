@@ -72,8 +72,8 @@ router.post('/save', async (req, res) => {
 
 router.post('/edit', (req, res) => {
     Note.findByIdAndUpdate(req.body.id, {
-        expenseTitle: req.body.expenseTitle,
-        amount: req.body.amount,
+        noteTitle: req.body.noteTitle,
+        description: req.body.description,
         date: Date.now()
     }, (error) => {
         if (error) {
