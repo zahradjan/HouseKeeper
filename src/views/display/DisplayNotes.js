@@ -7,7 +7,7 @@ const DisplayNotes = (props) => {
 
     return (
         <div className="card card-body mb-3">
-             <InputNotes noteItem={props.noteItem} />
+             {!props.isHidden &&<InputNotes noteItem={props.noteItem} />}
              <NotesList  editNotes={props.editNotes}/>
         </div>
     )
