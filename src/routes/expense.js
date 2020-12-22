@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const Expense = require('../models/expense')
+const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Expense.find({})
         .then((data) => {
             res.json(data);
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.post('/delete', (req, res) => {
+router.post('/delete', ensureAuthenticated, (req, res) => {
     Expense.deleteOne({ _id: req.body.id }, function (err, result) {
         if (err) {
             res.send(err);
@@ -23,7 +24,7 @@ router.post('/delete', (req, res) => {
     });
 });
 
-router.post('/deleteAll', (req, res) => {
+router.post('/deleteAll', ensureAuthenticated, (req, res) => {
     Expense.deleteMany({}, function (err, result) {
         if (err) {
             res.send(err);
@@ -34,7 +35,7 @@ router.post('/deleteAll', (req, res) => {
 
 })
 
-router.get('/count', (req, res) => {
+router.get('/count', ensureAuthenticated, (req, res) => {
     Expense.find({})
         .then((data) => {
             var count = 0;
@@ -50,7 +51,7 @@ router.get('/count', (req, res) => {
         });
 });
 
-router.post('/save', async (req, res) => {
+router.post('/save', ensureAuthenticated, async (req, res) => {
     const data = req.body;
     const newExpense = new Expense(data);
     newExpense.save((error) => {
@@ -64,7 +65,7 @@ router.post('/save', async (req, res) => {
     });
 });
 
-router.post('/edit', (req, res) => {
+router.post('/edit', ensureAuthenticated, (req, res) => {
     Expense.findByIdAndUpdate(req.body.id, {
         expenseTitle: req.body.expenseTitle,
         amount: req.body.amount,

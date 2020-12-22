@@ -6,11 +6,17 @@ const router = express.Router()
 
 //GET požadavek pro zobrazení stránky regisrace nového uživatele
 router.get('/register', (req, res) => {
-    res.render('./users/register')
+    User.findOne({})
+    .then((data) => {
+        res.json(data);
+    })
+    .catch((error) => {
+        console.log('error: ', error);
+    });
 })
 //GET požadavek pro zobrazení stránky přihlášená uživatele
 router.get('/login', (req, res) => {
-    res.render('./users/login')
+   
 })
 
 //POST požadavek pro registraci nového uživatele
@@ -33,20 +39,20 @@ router.post('/register', (req, res) => {
 
     if (errors.length > 0) {
 
-        res.render('./users/register', {
-            errors, email, password
-        });
+        // res.render('./users/register', {
+        //     errors, email, password
+        // });
     } else {
         User.findOne({ email: email }).then(user => {
             if (user) {
                 errors.push({ msg: 'Email již existuje' });
-                res.render('register', {
-                    errors,
-                    name,
-                    email,
-                    password
+                // res.render('register', {
+                //     errors,
+                //     name,
+                //     email,
+                //     password
                    
-                });
+                // });
             } else {
                 const newUser = new User({
                     name,
@@ -66,7 +72,8 @@ router.post('/register', (req, res) => {
                                     'success_msg',
                                     'Nyní jste registrovaní a můžete se přihlásit'
                                 );
-                                res.redirect('/users/login');
+                                // res.redirect('/login');
+                                res.status(200).send('OK');
                             })
                             .catch(err => console.log(err));
                     });

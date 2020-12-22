@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-
+const { ensureAuthenticated } = require('../config/auth');
 const Budget = require('../models/budget');
 
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
     Budget.findOne({})
         .then((data) => {
             res.json(data);
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.post('/save', async (req, res) => {
+router.post('/save', ensureAuthenticated, async (req, res) => {
     const data = req.body;
     const newBudget = new Budget(data);
     const oldBudget = (await Budget.findOne())
