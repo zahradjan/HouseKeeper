@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ErrorMessages from './partials/errorMessages'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -13,16 +14,7 @@ class Login extends Component {
             [e.target.name]: e.target.value
         })
     }
-    getUsers(){
-        axios.get('/users')
-        .then((response) => {
-            const data = response.data;
-            this.setState({ data: data })
-        })
-        .catch((err) => {
-            alert('ERROR RETRIEVING')
-        })
-}
+
 submit = (event) => {
     event.preventDefault();
 
@@ -41,8 +33,10 @@ submit = (event) => {
         method: 'POST',
         data: payload
     })
-        .then(() => {
-            this.props.callbackExpenses();
+        .then((response) => {
+            console.log("email:" + response.data.email)
+            console.log("email:" + response.data.name)
+            this.props.callbackUsername(response)          
         })
         .catch(() => {
             console.log('ERROR');
@@ -52,26 +46,28 @@ submit = (event) => {
 
     render() {
         return(
-        <div class="row mt-5">
-        <div class="col-md-6 m-auto">
-            <div class="card card-body">
-                <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Přihlášení</h1>
+        <div className="row mt-5">
+        <div className="col-md-6 m-auto">
+            <div className="card card-body">
+                <h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i> Přihlášení</h1>
                 {/* <ErrorMessages/> */}
                 <form onSubmit={this.submit} method="POST">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" onChange={this.handleInput}  value={this.state.email} name="email" class="form-control" placeholder="Zadejte Email" />
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" onChange={this.handleInput}  value={this.state.email} name="email" className="form-control" placeholder="Zadejte email" />
                     </div>
-                    <div class="form-group">
-                        <label for="password">Heslo</label>
-                        <input  value={this.state.password}  onChange={this.handleInput} type="password" name="password" class="form-control"
+                    <div className="form-group">
+                        <label htmlFor="password">Heslo</label>
+                        <input  value={this.state.password}  onChange={this.handleInput} type="password" name="password" className="form-control"
                             placeholder="Zadejte heslo" />
                     </div>
-                    <button type="submit" class="btn btn-success btn-block">Login</button>
+                    <button type="submit" className="btn btn-success btn-block">Login</button>
                 </form>
-                <p class="lead mt-4">
+                {/* <p class="lead mt-4">
                    Nemáte ještě účet <a href="/register">Registrace</a>
-                </p>
+                </p> */}
+
+                <p className="lead mt-4"> Nemáte ještě účet <Link to="/register">Registrace</Link></p>
             </div>
         </div>
     </div>

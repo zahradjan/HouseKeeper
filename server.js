@@ -14,10 +14,14 @@ const userRouter = require('./src/routes/users')
 const noteRouter = require('./src/routes/notes')
 
 
-const { ensureAuthenticated } = require('./src/config/auth');
+// const { ensureAuthenticated } = require('./src/config/auth');
 
-// // Passport konfigurace
+require('dotenv').config({path:'./src/config/.env'});
+// Passport konfigurace
 require('./src/config/passport')(passport);
+
+
+
 
 
 mongoose.connect('mongodb://localhost/calculator', {
@@ -61,13 +65,13 @@ app.use('/users',userRouter);
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
 
 
-app.get('/', ensureAuthenticated, async (req, res) => {
+// app.get('/', ensureAuthenticated, async (req, res) => {
   
-  Budget.findOne({})
-  .then((data) => {
-      res.json(data);
-  })
-  .catch((error) => {
-      console.log('error: ', error);
-  });
-})
+//   Budget.findOne({})
+//   .then((data) => {
+//       res.json(data);
+//   })
+//   .catch((error) => {
+//       console.log('error: ', error);
+//   });
+// })
