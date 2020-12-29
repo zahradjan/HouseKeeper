@@ -118,7 +118,11 @@ router.post('/login', async (req, res) => {
         const isValid = await bcrypt.compare(password, user.password)
         if(isValid)
         {
-            const jwtToken = issueJWT(user)         
+            const jwtToken = issueJWT(user)   
+            const extractedToken = jwtToken.token.replace(/^Bearer\s+/, "");  
+            console.log(extractedToken)    
+            const decodedToken = decodeToken(extractedToken)
+            console.log(decodedToken)
             res.status(200).json({token:jwtToken.token, expiresIn:jwtToken.expires})
         } else {
             res.status(401).json({msg:"Spatne heslo!"})
@@ -158,8 +162,9 @@ router.post('/login', async (req, res) => {
 
 ///POST požadavek pro odhlášení uživatele
 router.get('/logout', (req, res) => {
+    console.log("Logoutuju")
     req.logout();
-    req.flash('success_msg', 'Byli jste odhlášeni');
+    console.log("Logoutuju")
     // res.redirect('/users/login');
 });
 

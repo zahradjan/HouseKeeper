@@ -33,7 +33,7 @@ class NotesList extends Component {
     deleteItem = (id) => {
         axios.post('/note/delete', { id })
             .then(() => {
-                // this.props.callbackNotes();
+               
             })
             .catch((err) => {
                 alert('ERROR RETRIEVING')
@@ -66,7 +66,7 @@ class NotesList extends Component {
 
                         <h4 className="card-title">{note.noteTitle}</h4>
                         <div className="card-text mb-2">{new Date(note.date).toLocaleString()}</div>
-
+                        <div className="card-text mb-2">{note.noteUserName}</div>
                         {/* <div className="card-subtitle text-muted mb-2"></div> */}
                         <div className="card-text mb-2">{note.description}</div>
                       

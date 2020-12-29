@@ -7,6 +7,10 @@ const noteSchema = new Schema({
         type: String,
         required: true
     },
+    noteUserName:{
+        type: String,
+        required: true
+    },
     description: {
         type: String
     },

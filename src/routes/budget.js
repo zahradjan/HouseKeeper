@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
+const passport = require('passport');
 const { ensureAuthenticated } = require('../config/auth');
 const Budget = require('../models/budget');
 
-router.get('/', (req, res) => {
+
+
+router.get('/',  (req, res) => {
     Budget.findOne({})
         .then((data) => {
             res.json(data);

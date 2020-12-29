@@ -27,13 +27,14 @@ class Navbar extends Component {
     
         axios({
             url: 'users/logout',
-            method: 'POST',
+            method: 'GET',
         })
             .then(() => {
+                console.log("pushuju")
                 this.props.history.push("/login")
             })
-            .catch(() => {
-                console.log('ERROR');
+            .catch((err) => {
+                console.log(err);
             })
     };
     

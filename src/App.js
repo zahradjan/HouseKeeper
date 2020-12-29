@@ -5,7 +5,6 @@ import Navbar from './views/partials/navbar'
 import Footer from './views/partials/footer'
 import Login from './views/users/login'
 import Register from './views/users/register'
-import axios from 'axios';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,32 +15,10 @@ import {
 
 const App = () => {
   const [userName, setUsername] = React.useState('');
-  const callbackUsername = (email) => {
-    // getUserName(email);
+  const callbackUsername = (user) => {
+     setUsername(user.name)
+     
 }
-// React.useEffect(() => {
-//   getUserName();
-// }, [])
-//   const getUserName = (email) => {
-//     console.log("tady taky")
-//     const payload = {
-//       email:email
-//     }
-//     axios({
-//       url: 'users/find',
-//       method: 'POST',
-//       data: payload
-//   }).then((response) => {
-//       console.log("tady taky2")
-//         const username = response.data.name;
-//         console.log(username)
-//         setUsername(username);
-//         this.props.history.push("/")
-
-//   }).catch((err) => {
-//         alert('ERROR RETRIEVING')
-//     })
-//   }
   return (
     
     <div className="App">
@@ -49,18 +26,22 @@ const App = () => {
       <Navbar  userName={userName} />
       
             <Switch>
-              {/* <Route path='/login' component={Login}/> */}
-              <Route path='/login' > <Login callbackUsername={callbackUsername}/></Route> 
-             {/* <Route path='/login'   render={() =>{
+            
+             <Route path='/login'   render={(props) =>{
                return(
-                <Login callbackUsername={callbackUsername()}/>
+                <Login  {...props} callbackUsername={callbackUsername}/>
                )
-             }}   />   */}
-             <Route path='/register'> <Register /></Route> 
-             {/* <Route path='/register' component={Register} />         */}
-             <Route exact path='/'>
-             <Dashboard/>
-            </Route>    
+             }}   />  
+             <Route path='/register'   render={(props) =>{
+               return(
+                <Register  {...props} />
+               )
+             }}   /> 
+             <Route exact path='/'   render={(props) =>{
+               return(
+                <Dashboard  {...props}  userName={userName} />
+               )
+             }}   />     
             </Switch>
     
       <Footer />

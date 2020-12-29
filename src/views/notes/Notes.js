@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 import { MdAddBox } from "react-icons/md";
 import DisplayNotes from '../display/DisplayNotes';
 
-const Notes = () => {
+const Notes = (props) => {
 
     const [noteItem, setNoteItem] = React.useState('');
     const [isHidden, setVisibility] = React.useState(true);
@@ -29,7 +29,7 @@ const Notes = () => {
                         </div>
                     </div>
 
-                    <DisplayNotes editNotes={editNotes} noteItem={noteItem}  isHidden={isHidden}/>
+                    <DisplayNotes  userName={props.userName} editNotes={editNotes} noteItem={noteItem}  isHidden={isHidden}/>
 
 
                 </div>

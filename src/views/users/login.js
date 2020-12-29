@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ErrorMessages from './partials/errorMessages'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+
 
 
 class Login extends Component {
@@ -14,6 +16,13 @@ class Login extends Component {
             [e.target.name]: e.target.value
         })
     }
+    extractUserFromToken = (bearer) => {
+        let tokenStringArray = bearer.split(" ")
+        console.log("Token"+tokenStringArray[1])
+        let decodedToken = jwt_decode(tokenStringArray[1])
+        return decodedToken.user
+    }
+
 
 submit = (event) => {
     event.preventDefault();
@@ -34,12 +43,13 @@ submit = (event) => {
         data: payload
     })
         .then((response) => {
-            console.log("email:" + response.data.email)
-            console.log("email:" + response.data.name)
-            this.props.callbackUsername(response)          
+            console.log(response.data.token)
+            const user = this.extractUserFromToken(response.data.token)
+            this.props.callbackUsername(user)  
+            this.props.history.push('/')        
         })
-        .catch(() => {
-            console.log('ERROR');
+        .catch((err) => {
+            console.log(err);
         })
 };
 

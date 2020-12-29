@@ -7,6 +7,7 @@ class InputNotes extends Component {
     state = {
         notes: [],
         noteTitle: '',
+        noteUserName:'',
         description: '',
         id: '',
     }
@@ -23,6 +24,7 @@ class InputNotes extends Component {
         if (prevProps.noteItem.noteTitle !== this.props.noteItem.noteTitle) {
             this.setState({
                 noteTitle: this.props.noteItem.noteTitle,
+                noteUserName: this.props.userName,
                 description: this.props.noteItem.description,
                 id: this.props.noteItem._id,
             })
@@ -35,6 +37,7 @@ class InputNotes extends Component {
     reset = () => {
         this.setState({
             noteTitle: '',
+            noteUserName:'',
             description: '',
             id: '',
         })
@@ -45,6 +48,7 @@ class InputNotes extends Component {
 
         const payload = {
             noteTitle: this.state.noteTitle,
+            noteUserName: this.props.userName,
             description: this.state.description
         }
         console.log(payload)
@@ -74,6 +78,7 @@ class InputNotes extends Component {
         const payload = {
             id: this.props.noteItem._id,
             noteTitle: this.state.noteTitle,
+            noteUserName: this.props.userName,
             description: this.state.description
         }
 
@@ -93,8 +98,8 @@ class InputNotes extends Component {
                 // this.props.callbackExpenses();
 
             })
-            .catch(() => {
-                console.log('ERROR');
+            .catch((err) => {
+                console.log(err);
             })
 
     };

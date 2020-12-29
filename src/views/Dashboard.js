@@ -2,12 +2,13 @@ import React from 'react';
 import Budget from './budget/Budget';
 import Notes from './notes/Notes'
 import '../App.css';
+import { PromiseProvider } from 'mongoose';
 
 
 
 
 
-const Dashboard = () => {
+const Dashboard = (props) => {
 
     return (
       
@@ -17,7 +18,7 @@ const Dashboard = () => {
             <Budget />
           </div>
           <div className="container my-5">
-            <Notes/>
+            <Notes userName={props.userName} />
             </div>
         </div> 
       
