@@ -21,22 +21,22 @@ class NotesList extends Component {
     }
 
     getNotes = () => {
-        axios.get('/note/')
+        axios.get('/note/',{headers:{Authorization: localStorage.getItem('jwt') }})
             .then((response) => {
                 const data = response.data;
                 this.setState({ notes: data })
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
     }
     deleteItem = (id) => {
-        axios.post('/note/delete', { id })
+        axios.post('/note/delete',{headers:{Authorization: localStorage.getItem('jwt') }}, { id })
             .then(() => {
                
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
 
     }
@@ -45,7 +45,7 @@ class NotesList extends Component {
     }
     deleteAll = () => {
 
-        axios.post('/note/deleteAll')
+        axios.post('/note/deleteAll', {headers:{Authorization: localStorage.getItem('jwt') }})
             .then(() => {
 
             })

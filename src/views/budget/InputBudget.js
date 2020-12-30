@@ -24,13 +24,14 @@ class InputBudget extends Component {
         axios({
             url: 'budget/save',
             method: 'POST',
-            data: payload
+            data: payload,
+            headers:{Authorization: localStorage.getItem('jwt') }
         })
             .then(() => {
                 this.props.callbackExpenses();
             })
-            .catch(() => {
-                console.log('ERROR');
+            .catch((err) => {
+                console.log(err);
             })
     };
 

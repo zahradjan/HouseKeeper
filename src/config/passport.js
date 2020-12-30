@@ -10,10 +10,7 @@ const options = {
   secretOrKey: process.env.ACCESS_TOKEN_SECRET,
 }
 
-const decodeToken = (token) =>{
-  const decodedToken = jwt_decode(token)
-  return decodedToken;
-}
+
 
 const strategy = new JwtStrategy(options,(payload,done)=>{
  
@@ -21,8 +18,7 @@ const strategy = new JwtStrategy(options,(payload,done)=>{
     if (!user) {
       return done(null, false, { message: 'Email není registrován!' });
     }
-    console.log(user.password)
-    console.log(payload.user.password)
+ 
         // porovnání hesla tady nemuzu vyuzivat to bcrypt protoze oboji uz je v tuto chvili zasaltovane
         const isMatch = () =>  user.password === payload.user.password
         if(isMatch()){
@@ -32,7 +28,7 @@ const strategy = new JwtStrategy(options,(payload,done)=>{
         }
     }).catch(err => done(err,null));
 })
-require('dotenv').config();
+
 module.exports = function(passport) {
 
   passport.use(strategy);

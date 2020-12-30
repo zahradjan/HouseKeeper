@@ -14,13 +14,13 @@ const Budget = () => {
         getExpenseCount();
     }, [])
     const getExpenseCount = () => {
-        axios.get('/expense/count')
+        axios.get('/expense/count',{headers:{Authorization: localStorage.getItem('jwt') }})
             .then((response) => {
                 const data = response.data;
                 setExpensesCount(data);
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
     }
     const  editExpense =(expense) =>{

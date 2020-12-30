@@ -43,8 +43,9 @@ submit = (event) => {
         data: payload
     })
         .then((response) => {
-            console.log(response.data.token)
+          
             const user = this.extractUserFromToken(response.data.token)
+            localStorage.setItem('jwt',response.data.token)
             this.props.callbackUsername(user)  
             this.props.history.push('/')        
         })

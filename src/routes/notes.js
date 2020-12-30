@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
+const passport = require('passport');
 const Note = require('../models/note')
 
 const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', (req, res) => {
+router.get('/',  passport.authenticate('jwt',{session:false}), (req, res) => {
     Note.find({})
         .then((data) => {
             res.json(data);
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.post('/delete', (req, res) => {
+router.post('/delete',  passport.authenticate('jwt',{session:false}), (req, res) => {
     Note.deleteOne({ _id: req.body.id }, function (err, result) {
         if (err) {
             res.send(err);
@@ -25,7 +25,7 @@ router.post('/delete', (req, res) => {
     });
 });
 
-router.post('/deleteAll', (req, res) => {
+router.post('/deleteAll',  passport.authenticate('jwt',{session:false}), (req, res) => {
     Note.deleteMany({}, function (err, result) {
         if (err) {
             res.send(err);
@@ -36,7 +36,7 @@ router.post('/deleteAll', (req, res) => {
 
 })
 
-router.get('/count', (req, res) => {
+router.get('/count',  passport.authenticate('jwt',{session:false}), (req, res) => {
     Note.find({})
         .then((data) => {
             var count = 0;
@@ -52,7 +52,7 @@ router.get('/count', (req, res) => {
         });
 });
 
-router.post('/save', async (req, res) => {
+router.post('/save', passport.authenticate('jwt',{session:false}), async (req, res) => {
     const data = req.body;
     
     const newNote = new Note(data);
@@ -70,7 +70,7 @@ router.post('/save', async (req, res) => {
     });
 });
 
-router.post('/edit', (req, res) => {
+router.post('/edit',  passport.authenticate('jwt',{session:false}),(req, res) => {
     Note.findByIdAndUpdate(req.body.id, {
         noteTitle: req.body.noteTitle,
         description: req.body.description,

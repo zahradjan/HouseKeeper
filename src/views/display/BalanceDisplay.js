@@ -23,13 +23,13 @@ class BalanceDisplay extends React.Component {
     }
 
     getBudget = () => {
-        axios.get('/budget')
+        axios.get('/budget',{headers:{Authorization: localStorage.getItem('jwt') }})
             .then((response) => {
                 const data = response.data.amount;
                 this.setState({ amount: data })
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
     }
 

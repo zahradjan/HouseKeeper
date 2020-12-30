@@ -48,8 +48,8 @@ app.use(
 
 
 
-// Pouziti flash modulu
-app.use(flash());
+// // Pouziti flash modulu
+// app.use(flash());
 
 // // Passport inicilizace s použitím session
 app.use(passport.initialize());
@@ -64,14 +64,3 @@ app.use('/note', noteRouter)
 app.use('/users',userRouter);
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
 
-
-// app.get('/', ensureAuthenticated, async (req, res) => {
-  
-//   Budget.findOne({})
-//   .then((data) => {
-//       res.json(data);
-//   })
-//   .catch((error) => {
-//       console.log('error: ', error);
-//   });
-// })

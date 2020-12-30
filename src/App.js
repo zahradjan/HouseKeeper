@@ -9,8 +9,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  useHistory,
+  Redirect
 } from "react-router-dom";
 
 const App = () => {
@@ -19,6 +18,15 @@ const App = () => {
      setUsername(user.name)
      
 }
+ const isLoggedIn = () => {
+    let authenticated = localStorage.getItem('jwt')
+    console.log("Auth:" + authenticated)
+    if(authenticated != null) return true
+    
+      return false
+    
+}
+  
   return (
     
     <div className="App">
@@ -37,11 +45,19 @@ const App = () => {
                 <Register  {...props} />
                )
              }}   /> 
-             <Route exact path='/'   render={(props) =>{
-               return(
-                <Dashboard  {...props}  userName={userName} />
-               )
-             }}   />     
+             {/* <Route exact path='/'  render={(props) =>{
+                return( isLoggedIn ? (
+                  <Redirect to="/login"/>
+                ) : (
+                  <Dashboard {...props} username={userName}/>
+                )
+                )}}   />  */}
+                <Route exact path='/'  render={(props) =>(
+                    isLoggedIn() ? (
+                      <Dashboard {...props} username={userName}/>
+                    ) : (
+                      <Redirect to="/login"/>                      
+                    ))} /> 
             </Switch>
     
       <Footer />

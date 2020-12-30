@@ -119,10 +119,6 @@ router.post('/login', async (req, res) => {
         if(isValid)
         {
             const jwtToken = issueJWT(user)   
-            const extractedToken = jwtToken.token.replace(/^Bearer\s+/, "");  
-            console.log(extractedToken)    
-            const decodedToken = decodeToken(extractedToken)
-            console.log(decodedToken)
             res.status(200).json({token:jwtToken.token, expiresIn:jwtToken.expires})
         } else {
             res.status(401).json({msg:"Spatne heslo!"})
@@ -132,41 +128,8 @@ router.post('/login', async (req, res) => {
 
 });
 
-//POST požadavek pro přihlášení uživatele
-// router.post('/login', (req, res, next) => {
-//     const {email} = req.body
-//     console.log("Rekni mi ten email:"+email)
-
-//     passport.authenticate('local',{session: false},(err,user,info) => {
-      
-//         if (err || !user) {
-//             return res.status(400).json({
-//                 message: 'Something is not right',
-//                 user   : user
-//             });
-//         }
-     
-//         req.login(user, {session: false}, (err) => {
-//             if (err) {
-//                 res.send(err);
-//             }
-
-//               // generate a signed son web token with the contents of user object and return it in the response
-//            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-//            return res.json({user, token});
-//         });
-//     })
-   
-// });
 
 
-///POST požadavek pro odhlášení uživatele
-router.get('/logout', (req, res) => {
-    console.log("Logoutuju")
-    req.logout();
-    console.log("Logoutuju")
-    // res.redirect('/users/login');
-});
 
 function issueJWT(user) {
     

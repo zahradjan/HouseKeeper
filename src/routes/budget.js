@@ -6,7 +6,7 @@ const Budget = require('../models/budget');
 
 
 
-router.get('/',  (req, res) => {
+router.get('/',  passport.authenticate('jwt',{session:false}), (req, res) => {
     Budget.findOne({})
         .then((data) => {
             res.json(data);

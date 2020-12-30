@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Navbar extends Component {
     state = {
@@ -16,6 +16,28 @@ class Navbar extends Component {
         }
 
     }
+    // logout = (event) => {
+    //     event.preventDefault();
+    //     console.log("Click")
+        
+    
+    //     this.setState({
+    //         userName:''
+    //     })
+    
+    //     axios({
+    //         url: 'users/logout',
+    //         method: 'GET',
+    //     })
+    //         .then(() => {
+    //             localStorage.removeItem('jwt')
+    //             console.log("pushuju")
+    //             this.props.history.push("/login")
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // };
     logout = (event) => {
         event.preventDefault();
         console.log("Click")
@@ -24,18 +46,12 @@ class Navbar extends Component {
         this.setState({
             userName:''
         })
+
+        localStorage.removeItem('jwt')
+        console.log("pushuju")
+        this.props.history.push("/login")
     
-        axios({
-            url: 'users/logout',
-            method: 'GET',
-        })
-            .then(() => {
-                console.log("pushuju")
-                this.props.history.push("/login")
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+     
     };
     
 
@@ -55,9 +71,9 @@ class Navbar extends Component {
                 <a className="nav-link" href="/"><i className="fa fa-home fa-fw mr-1"></i>Doma</a>
 
 
+                <Link className="nav-link" onClick={this.logout}><i className="fas fa-sign-out-alt fa-fw mr-1"></i>Odhlásit</Link>
 
-
-                <button className="nav-link" onClick={this.logout}><i className="fas fa-sign-out-alt fa-fw mr-1"></i>Odhlásit</button>
+            
 
                 </div>
 
@@ -70,4 +86,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+export default withRouter(Navbar)

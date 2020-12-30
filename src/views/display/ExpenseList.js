@@ -21,22 +21,22 @@ class ExpenseList extends Component {
     }
 
     getExpense = () => {
-        axios.get('/expense/')
+        axios.get('/expense/', {headers:{Authorization: localStorage.getItem('jwt') }})
             .then((response) => {
                 const data = response.data;
                 this.setState({ expenses: data })
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
     }
     deleteItem = (id) => {
-        axios.post('/expense/delete', { id })
+        axios.post('/expense/delete',{headers:{Authorization: localStorage.getItem('jwt') }}, { id })
             .then(() => {
                 this.props.callbackExpenses();
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
 
     }
@@ -45,13 +45,13 @@ class ExpenseList extends Component {
     }
     deleteAll = () => {
 
-        axios.post('/expense/deleteAll')
+        axios.post('/expense/deleteAll', {headers:{Authorization: localStorage.getItem('jwt') }})
             .then(() => {
                 this.props.callbackExpenses();
              
             })
             .catch((err) => {
-                alert('ERROR RETRIEVING')
+                alert(err)
             })
 
     }
