@@ -4,7 +4,7 @@ import InputExpenses from './InputExpenses';
 import DisplayBudget from '../display/DisplayBudget';
 import axios from 'axios';
 
-const Budget = () => {
+const Budget = (props) => {
     const [expensesCount, setExpensesCount] = React.useState(0);
     const [expenseItem, setExpenseItem] = React.useState('');
     const callbackExpenses = () => {
@@ -33,10 +33,10 @@ const Budget = () => {
         <div className="row">
             <div className="col-lg-4">
                 <InputBudget callbackExpenses={callbackExpenses}/>
-                <InputExpenses callbackExpenses={callbackExpenses}  expenseItem={expenseItem}/>
+                <InputExpenses userName={props.userName} callbackExpenses={callbackExpenses}  expenseItem={expenseItem}/>
             </div>
             <div className="col-lg-8">
-                <DisplayBudget  expensesCount={expensesCount} editExpense={editExpense} callbackExpenses={callbackExpenses} />
+                <DisplayBudget  userName={props.userName} expensesCount={expensesCount} editExpense={editExpense} callbackExpenses={callbackExpenses} />
             </div>
         </div>
 

@@ -8,6 +8,7 @@ class InputExpenses extends Component {
         expenses: [],
         expenseTitle: '',
         amount: 0,
+        userName:'',
         id: '',
     }
 
@@ -24,6 +25,7 @@ class InputExpenses extends Component {
             this.setState({
                 expenseTitle: this.props.expenseItem.expenseTitle,
                 amount: this.props.expenseItem.amount,
+                userName: this.props.expenseItem.userName,
                 id: this.props.expenseItem._id,
             })
 
@@ -45,7 +47,9 @@ class InputExpenses extends Component {
 
         const payload = {
             expenseTitle: this.state.expenseTitle,
-            amount: this.state.amount
+            amount: this.state.amount,
+            userName: this.props.userName
+
         }
 
         this.setState({
@@ -75,7 +79,8 @@ class InputExpenses extends Component {
         const payload = {
             id: this.props.expenseItem._id,
             expenseTitle: this.state.expenseTitle,
-            amount: this.state.amount
+            amount: this.state.amount,
+            userName: this.props.userName
         }
 
         this.setState({

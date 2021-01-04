@@ -20,7 +20,6 @@ const App = () => {
 }
  const isLoggedIn = () => {
     let authenticated = localStorage.getItem('jwt')
-    console.log("Auth:" + authenticated)
     if(authenticated != null) return true
     
       return false
@@ -44,17 +43,10 @@ const App = () => {
                return(
                 <Register  {...props} />
                )
-             }}   /> 
-             {/* <Route exact path='/'  render={(props) =>{
-                return( isLoggedIn ? (
-                  <Redirect to="/login"/>
-                ) : (
-                  <Dashboard {...props} username={userName}/>
-                )
-                )}}   />  */}
+             }}   />         
                 <Route exact path='/'  render={(props) =>(
                     isLoggedIn() ? (
-                      <Dashboard {...props} username={userName}/>
+                      <Dashboard {...props} userName={userName}/>
                     ) : (
                       <Redirect to="/login"/>                      
                     ))} /> 

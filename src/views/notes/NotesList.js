@@ -31,28 +31,39 @@ class NotesList extends Component {
             })
     }
     deleteItem = (id) => {
-        axios.post('/note/delete',{headers:{Authorization: localStorage.getItem('jwt') }}, { id })
-            .then(() => {
-               
-            })
-            .catch((err) => {
-                alert(err)
-            })
+        console.log("id: " + id)
+        const payload = {
+            id: id
+        }
+        axios({
+            url: '/note/delete',
+            method: 'POST',
+            data: payload,
+            headers:{Authorization: localStorage.getItem('jwt') }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
     }
     editItem(note) {
         this.props.editNotes(note);
     }
     deleteAll = () => {
+      
+        axios({
+            url: '/note/deleteAll',
+            method: 'POST',
+            headers:{Authorization: localStorage.getItem('jwt') }
+        })
+        
+        .catch((err) => {
+            console.log(err);
+        })
 
-        axios.post('/note/deleteAll', {headers:{Authorization: localStorage.getItem('jwt') }})
-            .then(() => {
 
-            })
-            .catch((err) => {
-                alert('ERROR RETRIEVING')
-            })
 
+     
     }
     displayNotes = (notes) => {
         if (notes.length === null) return
@@ -86,7 +97,7 @@ class NotesList extends Component {
 
     }
     displayDAButton(notes) {
-        if (notes.length === null) return
+        if (!notes.length) return
 
         return (
             <div className="text-center">

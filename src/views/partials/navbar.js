@@ -16,39 +16,15 @@ class Navbar extends Component {
         }
 
     }
-    // logout = (event) => {
-    //     event.preventDefault();
-    //     console.log("Click")
-        
-    
-    //     this.setState({
-    //         userName:''
-    //     })
-    
-    //     axios({
-    //         url: 'users/logout',
-    //         method: 'GET',
-    //     })
-    //         .then(() => {
-    //             localStorage.removeItem('jwt')
-    //             console.log("pushuju")
-    //             this.props.history.push("/login")
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         })
-    // };
     logout = (event) => {
         event.preventDefault();
-        console.log("Click")
         
     
         this.setState({
             userName:''
         })
-
-        localStorage.removeItem('jwt')
-        console.log("pushuju")
+        const storedToken = localStorage.getItem('jwt')
+        if(storedToken != null)  localStorage.removeItem('jwt')   
         this.props.history.push("/login")
     
      

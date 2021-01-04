@@ -14,7 +14,7 @@ const Dashboard = (props) => {
   
          <div id="main">
           <div className="container my-5">
-            <Budget />
+            <Budget userName={props.userName} />
           </div>
           <div className="container my-5">
             <Notes userName={props.userName} />

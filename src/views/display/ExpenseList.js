@@ -9,6 +9,7 @@ class ExpenseList extends Component {
         expenseTitle: '',
         amount: '',
         date: '',
+        userName:'',
         expenses: []
     }
     componentDidMount = () => {
@@ -31,29 +32,41 @@ class ExpenseList extends Component {
             })
     }
     deleteItem = (id) => {
-        axios.post('/expense/delete',{headers:{Authorization: localStorage.getItem('jwt') }}, { id })
-            .then(() => {
-                this.props.callbackExpenses();
-            })
-            .catch((err) => {
-                alert(err)
-            })
-
+        const payload = {
+            id: id
+        }
+        axios({
+            url: '/expense/delete',
+            method: 'POST',
+            data: payload,
+            headers:{Authorization: localStorage.getItem('jwt') }
+        })
+        .then(() => {
+            this.props.callbackExpenses();
+        })
+        .catch((err) => {
+            alert(err)
+        })
     }
     editItem(expense){
         this.props.editExpense(expense);
     }
     deleteAll = () => {
+        axios({
+            url: '/expense/deleteAll',
+            method: 'POST',
+            headers:{Authorization: localStorage.getItem('jwt') }
+        })
+        .then(() => {
+            this.props.callbackExpenses();
+         
+        })
+        
+        .catch((err) => {
+            alert(err)
+        })
 
-        axios.post('/expense/deleteAll', {headers:{Authorization: localStorage.getItem('jwt') }})
-            .then(() => {
-                this.props.callbackExpenses();
-             
-            })
-            .catch((err) => {
-                alert(err)
-            })
-
+     
     }
     displayExpenses = (expenses) => {
         if (!expenses.length) return null;
@@ -66,12 +79,14 @@ class ExpenseList extends Component {
                 <td>{expense.expenseTitle}</td>
                 <td>{expense.amount}</td>
                 <td>{new Date(expense.date).toLocaleString()}</td>
+                <td>{expense.userName}</td>
                 <IconContext.Provider value={{ className: "delete-buttons" }}>
                     <td className='text-center'><button className='btn btn-link' aria-label="delete button" onClick={() => this.deleteItem(expense._id)}><MdDelete className="btn-icon" /></button></td>
                 </IconContext.Provider>
                 <IconContext.Provider value={{ className: "edit-buttons" }}>
                     <td className='text-center'><button className='btn btn-link ' aria-label="edit button" onClick={() => this.editItem(expense)}><MdEdit className="btn-icon" /></button></td>
                 </IconContext.Provider>
+               
 
             </tr>
 
@@ -103,6 +118,10 @@ class ExpenseList extends Component {
                             <th>Položka</th>
                             <th>Výdaje</th>
                             <th>Datum</th>
+                            <th>Přidal</th>
+                            <th>Odebrat</th>
+                            <th>Upravit</th>
+                           
                         </tr>
                     </thead>
 

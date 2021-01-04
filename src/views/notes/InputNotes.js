@@ -110,14 +110,14 @@ class InputNotes extends Component {
         if (this.state.id === this.props.noteItem._id) {
             return (
                 <form onSubmit={this.edit}>
-                    <label>Položka</label>
+                    <label>Název</label>
                     <input onChange={this.handleInput}
                         value={this.state.noteTitle}
                         className="form-control"
                         name="noteTitle"
                         required
                     />
-                    <label>Výdaje</label>
+                    <label>Popis</label>
                     <input
                         onChange={this.handleInput}
                         value={this.state.description}

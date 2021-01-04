@@ -16,6 +16,7 @@ router.get('/',  passport.authenticate('jwt',{session:false}), (req, res) => {
 });
 
 router.post('/delete',  passport.authenticate('jwt',{session:false}), (req, res) => {
+    console.log("Id v backendu: " + req.body.id )
     Note.deleteOne({ _id: req.body.id }, function (err, result) {
         if (err) {
             res.send(err);

@@ -8,7 +8,8 @@ const expenseSchema = new Schema({
     date: {
         type: Date,
         default: Date.now()
-    }
+    },
+    userName: String,
 });
 
 const expense = mongoose.model('Expense', expenseSchema);
