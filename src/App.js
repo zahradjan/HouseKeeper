@@ -5,6 +5,7 @@ import Navbar from './views/partials/navbar'
 import Footer from './views/partials/footer'
 import Login from './views/users/login'
 import Register from './views/users/register'
+import jwt_decode from 'jwt-decode';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,9 +15,22 @@ import {
 
 const App = () => {
   const [userName, setUsername] = React.useState('');
-  const callbackUsername = (user) => {
+  const [message, setMessage] = React.useState('');
+
+  const callbackUsername = () => {
+    const bearer = localStorage.getItem("jwt")
+    if(bearer !== null){
+     const user =  extractUserFromToken(bearer)
      setUsername(user.name)
-     
+    }   
+}
+const callbackMessage = (msg) => {
+  setMessage(msg)
+}
+const extractUserFromToken = (bearer) => {
+  let tokenStringArray = bearer.split(" ")
+  let decodedToken = jwt_decode(tokenStringArray[1])
+  return decodedToken.user
 }
  const isLoggedIn = () => {
     let authenticated = localStorage.getItem('jwt')
@@ -30,18 +44,18 @@ const App = () => {
     
     <div className="App">
       <Router>
-      <Navbar  userName={userName} />
+      <Navbar  userName={userName} callbackUsername={callbackUsername} callbackMessage={callbackMessage}/>
       
             <Switch>
             
              <Route path='/login'   render={(props) =>{
                return(
-                <Login  {...props} callbackUsername={callbackUsername}/>
+                <Login  {...props} callbackUsername={callbackUsername} message={message}/>
                )
              }}   />  
-             <Route path='/register'   render={(props) =>{
+             <Route path='/register'   render={(props)  =>{
                return(
-                <Register  {...props} />
+                <Register  {...props} callbackMessage={callbackMessage}/>
                )
              }}   />         
                 <Route exact path='/'  render={(props) =>(

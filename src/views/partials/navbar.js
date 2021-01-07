@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 
 class Navbar extends Component {
@@ -16,6 +15,9 @@ class Navbar extends Component {
         }
 
     }
+    componentDidMount(){
+        this.props.callbackUsername()
+    }
     logout = (event) => {
         event.preventDefault();
         
@@ -23,8 +25,8 @@ class Navbar extends Component {
         this.setState({
             userName:''
         })
-        const storedToken = localStorage.getItem('jwt')
-        if(storedToken != null)  localStorage.removeItem('jwt')   
+        if(localStorage.getItem('jwt') !== null) localStorage.removeItem('jwt')  
+        this.props.callbackMessage("Uživatel úspěšně odhlášen!")
         this.props.history.push("/login")
     
      
@@ -47,7 +49,7 @@ class Navbar extends Component {
                 <a className="nav-link" href="/"><i className="fa fa-home fa-fw mr-1"></i>Doma</a>
 
 
-                <Link className="nav-link" onClick={this.logout}><i className="fas fa-sign-out-alt fa-fw mr-1"></i>Odhlásit</Link>
+                <Link  to="/login"  className="nav-link" onClick={this.logout}><i className="fas fa-sign-out-alt fa-fw mr-1"></i>Odhlásit</Link>
 
             
 

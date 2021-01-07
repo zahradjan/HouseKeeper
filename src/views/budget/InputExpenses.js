@@ -18,22 +18,6 @@ class InputExpenses extends Component {
         })
     }
 
-    
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle ) {
-            this.setState({
-                expenseTitle: this.props.expenseItem.expenseTitle,
-                amount: this.props.expenseItem.amount,
-                userName: this.props.expenseItem.userName,
-                id: this.props.expenseItem._id,
-            })
-
-
-        }
-
-    }
-
     reset = () => {
         this.setState({
             expenseTitle: '',

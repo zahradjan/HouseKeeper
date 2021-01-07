@@ -15,10 +15,16 @@ class ExpenseList extends Component {
     componentDidMount = () => {
         this.getExpense();
     }
-    componentDidUpdate(prevState) {
-        if (prevState.expenses !== this.state.expenses) {
-            this.getExpense();
-        }
+    // componentDidUpdate(prevState) {
+    //     if (prevState.expenses !== this.state.expenses) {
+    //         this.getExpense();
+    //     }
+    // }
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = ()=>{
+            return;
+        };
     }
 
     getExpense = () => {

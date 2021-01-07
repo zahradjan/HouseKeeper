@@ -11,11 +11,23 @@ class BalanceDisplay extends React.Component {
         color: '',
         amount: 0,
     }
+    componentDidMount(){
+        this.getBudget();
+    }
     
     componentDidUpdate(prevState){
-        if(prevState.amount !== this.state.amount){
+        console.log(prevState)
+        console.log(this.state)
+        // if(prevState.amount !== this.state.amount){
+        if(prevState !== this.state){
         this.getBudget();
         }
+    }
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = ()=>{
+            return;
+        };
     }
 
     changeColor = (leftOver) => {

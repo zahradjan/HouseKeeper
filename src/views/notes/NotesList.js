@@ -14,12 +14,16 @@ class NotesList extends Component {
     componentDidMount = () => {
         this.getNotes();
     }
-    componentDidUpdate(prevState) {
-        if (prevState.notes !== this.state.notes) {
-            this.getNotes();
-        }
+    // componentDidUpdate(prevState) {
+    //     if (prevState.notes !== this.state.notes) {
+    //         this.getNotes();
+    //     }
+    // }
+    componentWillUnmount() {
+        this.setState = ()=>{
+            return;
+        };
     }
-
     getNotes = () => {
         axios.get('/note/',{headers:{Authorization: localStorage.getItem('jwt') }})
             .then((response) => {
@@ -76,8 +80,8 @@ class NotesList extends Component {
                     <div className="card-body">
 
                         <h4 className="card-title">{note.noteTitle}</h4>
-                        <div className="card-text mb-2">{new Date(note.date).toLocaleString()}</div>
-                        <div className="card-text mb-2">{note.noteUserName}</div>
+                        <div className="card-text mb-2">Přidáno uživatelem: {note.noteUserName}</div>
+                        <div className="card-text mb-2">{new Date(note.date).toLocaleString()}</div>                     
                         {/* <div className="card-subtitle text-muted mb-2"></div> */}
                         <div className="card-text mb-2">{note.description}</div>
                       

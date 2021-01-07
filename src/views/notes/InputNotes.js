@@ -18,22 +18,6 @@ class InputNotes extends Component {
         })
     }
 
-
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.noteItem.noteTitle !== this.props.noteItem.noteTitle) {
-            this.setState({
-                noteTitle: this.props.noteItem.noteTitle,
-                noteUserName: this.props.userName,
-                description: this.props.noteItem.description,
-                id: this.props.noteItem._id,
-            })
-
-
-        }
-
-    }
-
     reset = () => {
         this.setState({
             noteTitle: '',

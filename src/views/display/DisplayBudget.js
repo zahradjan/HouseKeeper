@@ -3,7 +3,7 @@ import BalanceDisplay from './BalanceDisplay';
 import ExpenseList from './ExpenseList';
 
 const DisplayBudget = (props) => {
-
+    
     return (
         <div className="card card-body">
             <h3 className="text-center">Informace o rozpočtu</h3>

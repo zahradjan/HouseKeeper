@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import ErrorMessages from './partials/errorMessages'
-import { Link, Redirect, useHistory } from 'react-router-dom';
+// import ErrorMessages from './partials/errorMessages'
+import { Link} from 'react-router-dom';
 import axios from 'axios';
+import { Alert} from '@material-ui/lab';
 
 class Register extends Component {
     
@@ -9,7 +10,8 @@ class Register extends Component {
     state = {
         name:'',
         email:'',
-        password:''
+        password:'',
+        errorMessage:'',
     }
     handleInput = (e) => {
         this.setState({
@@ -18,20 +20,16 @@ class Register extends Component {
     }
     submit = (event) => {
       
-    //    const history = useHistory();
         event.preventDefault();
-    
+        if(!this.state.name || !this.state.email || !this.state.password) return
+        if(this.state.password.length < 6) return
         const payload = {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
         }
     
-        this.setState({
-            name:'',
-            email:'',
-            password:''
-        })
+       
     
         axios({
             url: 'users/register',
@@ -39,15 +37,16 @@ class Register extends Component {
             data: payload
         })
             .then(() => {
-      
-                // this.props.history.push('/login')
+                this.props.callbackMessage("Uživatel úspěšně zaregistrován!")
+                this.props.history.push('/login')
             })
-            .catch(() => {
-                console.log('ERROR');
+            .catch((err) => {
+                this.setState({ errorMessage: err.response.data.msg})
+                
+               
             })
     };
     
-
 
     render() {
         return(
@@ -57,7 +56,25 @@ class Register extends Component {
                 <h1 className="text-center mb-3">
                     <i className="fas fa-user-plus"></i> Registrace
                 </h1>
-                {/* <ErrorMessages/> */}
+                {this.state.errorMessage &&
+                        <Alert severity="error" onClose={() => {this.setState({errorMessage:''})}}>
+                      
+                        {this.state.errorMessage} 
+                        </Alert>
+                         } 
+                  {(!this.state.name || !this.state.email || !this.state.password) &&
+                        <Alert severity="warning" >
+                     
+                       Prosím vyplňte všechny údaje!
+                        </Alert>
+                         }          
+                 {this.state.password && this.state.password.length < 6 &&
+                        <Alert severity="warning" >
+                     
+                        Heslo je příliš krátké! Musí obsahovat alespoň 6 znaků!
+                        </Alert>
+                         }          
+
                 <form onSubmit={this.submit} method="POST">
                     <div className="form-group">
                         <label htmlFor="name">Jméno</label>
@@ -79,7 +96,6 @@ class Register extends Component {
                         Registrovat
                     </button>
                 </form>
-                {/* <p class="lead mt-4">Máte již účet? <a href="/login">Přihlášení</a></p> */}
                 <p className="lead mt-4">Máte již účet? <Link to="/login"> Přihlášení</Link></p>
             </div>
         </div>

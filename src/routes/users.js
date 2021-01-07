@@ -49,29 +49,21 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
     const { name, email, password} = req.body;
 
-    let errors = [];
+    
     console.log("name:" + name)
     console.log("email:" + email)
     console.log("heslo:" + password)
 
-    if (!name || !email || !password) {
-        errors.push({ msg: 'Prosím vyplňte všechny údaje!' })
-    }
+    // if (!name || !email || !password) {
+    //     errors.push({ msg: 'Prosím vyplňte všechny údaje!' })
+    // }
 
-    if (password.length < 6) {
-        errors.push({ msg: 'Příliš krátké heslo! Heslo musí mít alespoň 6 znaků!' })
-     }
+   
+
   
-
-    if (errors.length > 0) {
-
-        // res.render('./users/register', {
-        //     errors, email, password
-        // });
-    } else {
         User.findOne({ email: email }).then(user => {
             if (user) {
-                errors.push({ msg: 'Email již existuje' });
+                return res.status(401).json({msg:"Email je již zaregistrován!"})
                 // res.render('register', {
                 //     errors,
                 //     name,
@@ -79,7 +71,7 @@ router.post('/register', (req, res) => {
                 //     password
                    
                 // });
-                console.log('Email již existuje')
+                
             } else {
                 const newUser = new User({
                     name,
@@ -106,7 +98,7 @@ router.post('/register', (req, res) => {
                 });
             }
         });
-    }
+    
 });
 
 //POST požadavek pro přihlášení uživatele
