@@ -14,11 +14,11 @@ class NotesList extends Component {
     componentDidMount = () => {
         this.getNotes();
     }
-    // componentDidUpdate(prevState) {
-    //     if (prevState.notes !== this.state.notes) {
-    //         this.getNotes();
-    //     }
-    // }
+    componentDidUpdate(prevState) {
+        if (prevState.notes !== this.state.notes) {
+            this.getNotes();
+        }
+    }
     componentWillUnmount() {
         this.setState = ()=>{
             return;
@@ -50,8 +50,9 @@ class NotesList extends Component {
         })
 
     }
-    editItem(note) {
+    editItem(note) {      
         this.props.editNotes(note);
+       
     }
     deleteAll = () => {
       
@@ -69,6 +70,10 @@ class NotesList extends Component {
 
      
     }
+    isSameUser(userName) {
+        return userName === this.props.userName
+    }
+
     displayNotes = (notes) => {
         if (notes.length === null) return
 
@@ -82,17 +87,17 @@ class NotesList extends Component {
                         <h4 className="card-title">{note.noteTitle}</h4>
                         <div className="card-text mb-2">Přidáno uživatelem: {note.noteUserName}</div>
                         <div className="card-text mb-2">{new Date(note.date).toLocaleString()}</div>                     
-                        {/* <div className="card-subtitle text-muted mb-2"></div> */}
                         <div className="card-text mb-2">{note.description}</div>
                       
                      
-                        {/* <IconContext.Provider value={{ className: "edit-buttons" }}> */}
-                            <button className='btn btn-success' aria-label="edit button" onClick={() => this.editItem(note)}><MdEdit /> Upravit</button>
-                        {/* </IconContext.Provider> */}
+                        
+                       { (this.props.isLoggedInAsAdmin() || this.isSameUser(note.noteUserName)) &&
+                      <button className='btn btn-success' aria-label="edit button" onClick={() => this.editItem(note)}><MdEdit /> Upravit</button>}
+         
 
-                        {/* <IconContext.Provider value={{ className: "delete-buttons" }}> */}
-                            <button className='btn btn-danger m-3' aria-label="delete button" onClick={() => this.deleteItem(note._id)}><MdDelete /> Smazat</button>
-                        {/* </IconContext.Provider> */}
+                         { (this.props.isLoggedInAsAdmin() || this.isSameUser(note.noteUserName)) && 
+                        <button className='btn btn-danger m-3' aria-label="delete button" onClick={() => this.deleteItem(note._id)}><MdDelete /> Smazat</button>}
+                 
                     </div>
                 </div>
             ))
@@ -126,7 +131,7 @@ class NotesList extends Component {
                  
                 {/* </div> */}
                 <div>
-                    {this.displayDAButton(this.state.notes)}
+                    {this.props.isLoggedInAsAdmin() && this.displayDAButton(this.state.notes)}
                 </div>
             </div>
         )

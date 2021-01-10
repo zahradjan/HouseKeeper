@@ -15,11 +15,11 @@ class ExpenseList extends Component {
     componentDidMount = () => {
         this.getExpense();
     }
-    // componentDidUpdate(prevState) {
-    //     if (prevState.expenses !== this.state.expenses) {
-    //         this.getExpense();
-    //     }
-    // }
+    componentDidUpdate(prevState) {
+        if (prevState.expenses !== this.state.expenses) {
+            this.getExpense();
+        }
+    }
     componentWillUnmount() {
         // fix Warning: Can't perform a React state update on an unmounted component
         this.setState = ()=>{
@@ -74,6 +74,11 @@ class ExpenseList extends Component {
 
      
     }
+
+    isSameUser(userName) {
+        return userName === this.props.userName
+    }
+
     displayExpenses = (expenses) => {
         if (!expenses.length) return null;
 
@@ -86,14 +91,12 @@ class ExpenseList extends Component {
                 <td>{expense.amount}</td>
                 <td>{new Date(expense.date).toLocaleString()}</td>
                 <td>{expense.userName}</td>
-                <IconContext.Provider value={{ className: "delete-buttons" }}>
+               { (this.props.isLoggedInAsAdmin() || this.isSameUser(expense.userName)) && <IconContext.Provider value={{ className: "delete-buttons" }}>
                     <td className='text-center'><button className='btn btn-link' aria-label="delete button" onClick={() => this.deleteItem(expense._id)}><MdDelete className="btn-icon" /></button></td>
-                </IconContext.Provider>
-                <IconContext.Provider value={{ className: "edit-buttons" }}>
+                </IconContext.Provider>}
+                { (this.props.isLoggedInAsAdmin() || this.isSameUser(expense.userName)) && <IconContext.Provider value={{ className: "edit-buttons" }}>
                     <td className='text-center'><button className='btn btn-link ' aria-label="edit button" onClick={() => this.editItem(expense)}><MdEdit className="btn-icon" /></button></td>
-                </IconContext.Provider>
-               
-
+                </IconContext.Provider>}              
             </tr>
 
         ));
@@ -138,7 +141,7 @@ class ExpenseList extends Component {
                     </tbody>
 
                 </table>
-                {this.displayDAButton(this.state.expenses)}
+                {this.props.isLoggedInAsAdmin() && this.displayDAButton(this.state.expenses)}
             </div>
         )
     }

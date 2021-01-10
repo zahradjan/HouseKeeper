@@ -32,11 +32,11 @@ const Budget = (props) => {
     return (
         <div className="row">
             <div className="col-lg-4">
-                <InputBudget callbackExpenses={callbackExpenses}/>
+               {props.isLoggedInAsAdmin() && <InputBudget callbackExpenses={callbackExpenses}/>}
                 <InputExpenses userName={props.userName} callbackExpenses={callbackExpenses}  expenseItem={expenseItem}/>
             </div>
             <div className="col-lg-8">
-                <DisplayBudget  userName={props.userName} expensesCount={expensesCount} editExpense={editExpense} callbackExpenses={callbackExpenses} />
+                <DisplayBudget isLoggedInAsAdmin={props.isLoggedInAsAdmin} userName={props.userName} expensesCount={expensesCount} editExpense={editExpense} callbackExpenses={callbackExpenses} />
             </div>
         </div>
 

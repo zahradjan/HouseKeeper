@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const Note = require('../models/note')
 
-const { ensureAuthenticated } = require('../config/auth');
+
 
 router.get('/',  passport.authenticate('jwt',{session:false}), (req, res) => {
     Note.find({})

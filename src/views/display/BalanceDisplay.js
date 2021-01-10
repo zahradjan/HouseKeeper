@@ -16,8 +16,8 @@ class BalanceDisplay extends React.Component {
     }
     
     componentDidUpdate(prevState){
-        console.log(prevState)
-        console.log(this.state)
+        // console.log(prevState)
+        // console.log(this.state)
         // if(prevState.amount !== this.state.amount){
         if(prevState !== this.state){
         this.getBudget();

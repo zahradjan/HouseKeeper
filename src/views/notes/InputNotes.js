@@ -18,6 +18,36 @@ class InputNotes extends Component {
         })
     }
 
+    
+    componentDidUpdate(prevProps) {
+        if (prevProps.noteItem !== this.props.noteItem) {
+            this.setState({
+                noteTitle: this.props.noteItem.noteTitle,
+                description: this.props.noteItem.description,
+                id: this.props.noteItem._id,
+            })
+
+
+        }
+
+    }
+
+    // componentDidMount(prevProps) {
+    //     console.log(this.props.noteItem.noteTitle)
+    //     if(this.props.noteItem.noteTitle !== undefined && this.state.noteTitle === undefined ){
+    //         this.setState({
+    //             noteTitle: this.props.noteItem.noteTitle,
+    //             description: this.props.noteItem.description,
+    //             id: this.props.noteItem._id,
+    //         })
+
+    //     } else{
+    //         this.reset()
+    //     }
+        
+
+    // }
+
     reset = () => {
         this.setState({
             noteTitle: '',
@@ -38,7 +68,8 @@ class InputNotes extends Component {
         console.log(payload)
         this.setState({
             noteTitle: '',
-            description: ''
+            description: '',
+            id: '',
         })
 
         axios({
@@ -80,7 +111,7 @@ class InputNotes extends Component {
             headers:{Authorization: localStorage.getItem('jwt') }
         })
             .then(() => {
-
+              
                 // this.props.callbackExpenses();
 
             })

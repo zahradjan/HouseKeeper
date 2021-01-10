@@ -32,10 +32,22 @@ const App = () => {
     let decodedToken = jwt_decode(tokenStringArray[1])
     return decodedToken.user
   }
+
+  
+
   const isLoggedIn = () => {
     let authenticated = localStorage.getItem('jwt')
     if (authenticated != null) return true
 
+    return false
+
+  }
+  const isLoggedInAsAdmin = () => {
+
+    let token = localStorage.getItem('jwt')
+    let user = extractUserFromToken(token)
+    if(user.role === "admin") return true
+    // if (token != null) return true
     return false
 
   }
@@ -61,7 +73,7 @@ const App = () => {
             }} />
             <Route exact path='/' render={(props) => (
               isLoggedIn() ? (
-                <Dashboard {...props} userName={userName} />
+                <Dashboard {...props} userName={userName} isLoggedInAsAdmin={isLoggedInAsAdmin}/>
               ) : (
                   <Redirect to="/login" />
                 ))} />

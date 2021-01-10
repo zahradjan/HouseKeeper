@@ -10,6 +10,39 @@ router.get("/protected", passport.authenticate('jwt',{session:false}), (req,res)
     res.status(200).json({msg:'Jste autorizovani!'})
 })
 
+router.get('/',  passport.authenticate('jwt',{session:false}), (req, res) => {
+    User.find({})
+        .then((data) => {
+            res.json(data);
+        })
+        .catch((error) => {
+            console.log('error: ', error);
+        });
+});
+
+router.post('/delete',  passport.authenticate('jwt',{session:false}),(req, res) => {
+    User.deleteOne({ _id: req.body.id }, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+router.post('/deleteAll',  passport.authenticate('jwt',{session:false}), (req, res) => {
+    User.deleteMany({}, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    })
+
+})
+
+
+
 
 //GET požadavek pro zobrazení stránky regisrace nového uživatele
 router.get('/register', (req, res) => {
@@ -22,28 +55,6 @@ router.get('/register', (req, res) => {
     });
 })
 
-// router.post('/find', (req, res) => {
-//     console.log('jsem u expressu')
-//     // console.log('Email: ' + req.body.email)
-//     const {email} = req.body
-//     console.log('Email: ' + email)
-//     const user = User.findOne({email:email})
-//     console.log(user.name)
-//     User.findOne({email:email})
-//     , (error) => {
-//         if (error) {
-            
-//             res.status(500).json({ msg: 'There was an error' })
-//         } else {
-//             console.log('bez erroru')
-//             res.json({
-//                 msg: 'Succesfully received'
-//             })
-//         }
-
-//     }
-
-// })
 
 //POST požadavek pro registraci nového uživatele
 router.post('/register', (req, res) => {
@@ -54,9 +65,6 @@ router.post('/register', (req, res) => {
     console.log("email:" + email)
     console.log("heslo:" + password)
 
-    // if (!name || !email || !password) {
-    //     errors.push({ msg: 'Prosím vyplňte všechny údaje!' })
-    // }
 
    
 
@@ -64,13 +72,6 @@ router.post('/register', (req, res) => {
         User.findOne({ email: email }).then(user => {
             if (user) {
                 return res.status(401).json({msg:"Email je již zaregistrován!"})
-                // res.render('register', {
-                //     errors,
-                //     name,
-                //     email,
-                //     password
-                   
-                // });
                 
             } else {
                 const newUser = new User({
@@ -106,14 +107,14 @@ router.post('/login', async (req, res) => {
     const {email, password} = req.body
     console.log("Rekni mi ten email:"+email)
     User.findOne({email:email}).then(async(user) =>{
-        if(!user) return res.status(401).json({msg:"Uzivatel nenalezen!"})
+        if(!user) return res.status(401).json({msg:"Uživatel nenalezen!"})
         const isValid = await bcrypt.compare(password, user.password)
         if(isValid)
         {
             const jwtToken = issueJWT(user)   
             res.status(200).json({token:jwtToken.token, expiresIn:jwtToken.expires})
         } else {
-            res.status(401).json({msg:"Spatne heslo!"})
+            res.status(401).json({msg:"Špatné heslo!"})
         }
     })
    
@@ -140,10 +141,10 @@ function issueJWT(user) {
     }
   }
 
-  const decodeToken = (token) =>{
-      const decodedToken = jwt_decode(token)
-      return decodedToken;
-  }
+//   const decodeToken = (token) =>{
+//       const decodedToken = jwt_decode(token)
+//       return decodedToken;
+//   }
   
 
 module.exports = router

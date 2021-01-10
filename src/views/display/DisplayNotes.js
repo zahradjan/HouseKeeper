@@ -7,8 +7,8 @@ const DisplayNotes = (props) => {
 
     return (
         <div className="card card-body mb-3">
-             {!props.isHidden &&<InputNotes noteItem={props.noteItem} userName={props.userName} />}
-             <NotesList   editNotes={props.editNotes}/>
+            <InputNotes noteItem={props.noteItem} userName={props.userName} />
+             <NotesList  isLoggedInAsAdmin={props.isLoggedInAsAdmin} userName={props.userName}  editNotes={props.editNotes}/>         
         </div>
     )
 }

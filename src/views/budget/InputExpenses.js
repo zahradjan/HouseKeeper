@@ -12,6 +12,19 @@ class InputExpenses extends Component {
         id: '',
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle ) {
+            this.setState({
+                expenseTitle: this.props.expenseItem.expenseTitle,
+                amount: this.props.expenseItem.amount,
+                id: this.props.expenseItem._id,
+            })
+
+
+        }
+
+    }
+
     handleInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
