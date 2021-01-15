@@ -14,14 +14,12 @@ class BalanceDisplay extends React.Component {
     componentDidMount(){
         this.getBudget();
     }
-    
-    componentDidUpdate(prevState){
-        // console.log(prevState)
-        // console.log(this.state)
-        // if(prevState.amount !== this.state.amount){
-        if(prevState !== this.state){
-        this.getBudget();
-        }
+    // nevim jakoze to stejne musis posilat v propsech protoze ten prevState bude stejnej proste a tim ze v jendom udelas input 
+    componentDidUpdate(prevProps,prevState){
+            // console.log(prevState.amount)
+            // console.log(this.state.amount)
+            // console.log(this.props.amount === prevState.amount)
+        if (this.props.amount !== 0 && this.props.amount !== prevState.amount) this.getBudget();
     }
     componentWillUnmount() {
         // fix Warning: Can't perform a React state update on an unmounted component

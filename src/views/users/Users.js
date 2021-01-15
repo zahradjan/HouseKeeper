@@ -16,11 +16,11 @@ class Users extends Component {
     componentDidMount = () => {
         this.getUsers();
     }
-    componentDidUpdate(prevState) {
-        if (prevState.expenses !== this.state.expenses) {
-            this.getExpense();
-        }
-    }
+    // componentDidUpdate(prevState) {
+    //     if (prevState.expenses !== this.state.expenses) {
+    //         this.getExpense();
+    //     }
+    // }
     componentWillUnmount() {
         // fix Warning: Can't perform a React state update on an unmounted component
         this.setState = ()=>{

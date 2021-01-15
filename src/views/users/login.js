@@ -21,6 +21,12 @@ class Login extends Component {
     componentDidMount(){
         this.setState({successfullMessage: this.props.message  })
     }
+    componentDidUpdate(prevProps){
+        console.log("volam")
+        if(prevProps.successfullMessage !== this.props.successfullMessage){
+            this.setState({successfullMessage: this.props.message  })
+        }
+    }
 
     submit = (event) => {
         event.preventDefault();
@@ -41,7 +47,7 @@ class Login extends Component {
             data: payload
         })
             .then((response) => {
-                console.log(response)
+              
 
                 localStorage.setItem('jwt', response.data.token)
                 this.props.callbackUsername()

@@ -15,22 +15,35 @@ class ExpenseList extends Component {
     componentDidMount = () => {
         this.getExpense();
     }
-    componentDidUpdate(prevState) {
-        if (prevState.expenses !== this.state.expenses) {
+
+    componentDidUpdate(prevProps,prevState) {
+        console.log(prevProps.userName)
+        console.log(this.props.userName)
+        console.log(prevState.expenses)
+        console.log(this.state.expenses)
+       
+        console.log(prevState.expenses === this.state.expenses)
+         
+     
+        if (prevState.expenses === this.state.expenses) {
+           
             this.getExpense();
         }
     }
     componentWillUnmount() {
-        // fix Warning: Can't perform a React state update on an unmounted component
         this.setState = ()=>{
             return;
         };
     }
 
+ 
+
+
     getExpense = () => {
         axios.get('/expense/', {headers:{Authorization: localStorage.getItem('jwt') }})
             .then((response) => {
                 const data = response.data;
+             
                 this.setState({ expenses: data })
             })
             .catch((err) => {

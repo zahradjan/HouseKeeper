@@ -92,7 +92,7 @@ router.post('/register', (req, res) => {
                                 const jwt =  issueJWT(user);
                                
                             
-                                res.json({token:jwt.token, expiresIn:jwt.expires})
+                                res.json({token:jwt.token})
                             })
                             .catch(err => console.log(err));
                     });
@@ -112,7 +112,7 @@ router.post('/login', async (req, res) => {
         if(isValid)
         {
             const jwtToken = issueJWT(user)   
-            res.status(200).json({token:jwtToken.token, expiresIn:jwtToken.expires})
+            res.status(200).json({token:jwtToken.token})
         } else {
             res.status(401).json({msg:"Špatné heslo!"})
         }
@@ -127,17 +127,17 @@ router.post('/login', async (req, res) => {
 function issueJWT(user) {
     
   
-    const expiresIn = '1d';
+    const expiresIn = Date.now() + (120 * 60 * 1000);
   
     const payload = {
       user : user,
-      iat: Date.now()
+      iat: Date.now(),
+      exp: expiresIn
     };
-    const signedToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: expiresIn });
+    const signedToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
   
     return {
-      token: "Bearer " + signedToken,
-      expires: expiresIn
+      token: "Bearer " + signedToken
     }
   }
 

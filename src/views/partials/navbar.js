@@ -5,19 +5,26 @@ class Navbar extends Component {
     state = {
         userName:''
     }
-    componentDidUpdate(prevProps) {
-        if (prevProps.userName !== this.props.userName ) {
-            this.setState({
-                userName: this.props.userName,               
-            })
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.userName !== this.props.userName ) {
+    //         this.setState({
+    //             userName: this.props.userName,               
+    //         })
 
 
-        }
+    //     }
 
-    }
+    // }
     componentDidMount(){
         this.props.callbackUsername()
     }
+
+    componentWillUnmount() {
+        this.setState = ()=>{
+            return;
+        };
+    }
+
     logout = (event) => {
         event.preventDefault();
         

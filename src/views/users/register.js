@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import ErrorMessages from './partials/errorMessages'
-import { Link} from 'react-router-dom';
+import { Link, withRouter} from 'react-router-dom';
 import axios from 'axios';
 import { Alert} from '@material-ui/lab';
 
@@ -46,6 +46,8 @@ class Register extends Component {
                
             })
     };
+
+
     
 
     render() {
@@ -96,7 +98,7 @@ class Register extends Component {
                         Registrovat
                     </button>
                 </form>
-                <p className="lead mt-4">Máte již účet? <Link to="/login"> Přihlášení</Link></p>
+                <p className="lead mt-4">Máte již účet? <Link to="/login" onClick={this.props.callbackMessage('')} > Přihlášení</Link></p>
             </div>
         </div>
     </div>
@@ -105,4 +107,4 @@ class Register extends Component {
 }
 
 
-export default Register
+export default withRouter(Register)

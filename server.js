@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const path = require('path');
 const app = express();
 const PORT = 4000;
 const methodOverride = require('method-override')
@@ -62,5 +63,14 @@ app.use('/budget', budgetRouter)
 app.use('/expense', expenseRouter)
 app.use('/note', noteRouter)
 app.use('/users',userRouter);
+
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
 

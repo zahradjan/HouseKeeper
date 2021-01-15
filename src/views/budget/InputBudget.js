@@ -7,9 +7,14 @@ class InputBudget extends Component {
         amount: 0,
     }
     handleInput = (e) => {
-        this.setState({ amount: e.target.value })
+        this.setState({ amount: Number(e.target.value) })
     }
 
+    componentWillUnmount() {
+        this.setState = ()=>{
+            return;
+        };
+    }
     submit = (event) => {
         event.preventDefault();
 
@@ -29,6 +34,7 @@ class InputBudget extends Component {
         })
             .then(() => {
                 this.props.callbackExpenses();
+                this.props.budgetChanged(payload.amount);
             })
             .catch((err) => {
                 console.log(err);
@@ -43,7 +49,7 @@ class InputBudget extends Component {
                 <form onSubmit={this.submit} className="form-inline">
                     <input
                         onChange={this.handleInput}
-                        value={this.state.budget}
+                        value={this.state.amount}
                         className="form-control mr-2"
                         type="number"
                     />

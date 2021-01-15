@@ -14,8 +14,11 @@ class NotesList extends Component {
     componentDidMount = () => {
         this.getNotes();
     }
-    componentDidUpdate(prevState) {
-        if (prevState.notes !== this.state.notes) {
+    componentDidUpdate = (prevProps,prevState) => {
+        console.log("Prev:"+prevState.notes)
+        console.log("This:"+this.state.notes)
+        console.log(prevState.notes === this.state.notes)
+        if (prevState.notes === this.state.notes) {
             this.getNotes();
         }
     }
@@ -44,6 +47,8 @@ class NotesList extends Component {
             method: 'POST',
             data: payload,
             headers:{Authorization: localStorage.getItem('jwt') }
+        }).then(()=>{
+            this.getNotes()
         })
         .catch((err) => {
             console.log(err);
@@ -60,6 +65,8 @@ class NotesList extends Component {
             url: '/note/deleteAll',
             method: 'POST',
             headers:{Authorization: localStorage.getItem('jwt') }
+        }).then(()=>{
+            this.getNotes()
         })
         
         .catch((err) => {

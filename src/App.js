@@ -20,34 +20,47 @@ const App = () => {
   const callbackUsername = () => {
     const bearer = localStorage.getItem("jwt")
     if (bearer !== null) {
-      const user = extractUserFromToken(bearer)
+      const info = extractInfoFromToken(bearer)
+      const user = info.user
       setUsername(user.name)
     }
   }
   const callbackMessage = (msg) => {
     setMessage(msg)
   }
-  const extractUserFromToken = (bearer) => {
+  const extractInfoFromToken = (bearer) => {
     let tokenStringArray = bearer.split(" ")
     let decodedToken = jwt_decode(tokenStringArray[1])
-    return decodedToken.user
+    return decodedToken
   }
 
   
 
   const isLoggedIn = () => {
-    let authenticated = localStorage.getItem('jwt')
-    if (authenticated != null) return true
-
-    return false
+    let token = localStorage.getItem('jwt')
+    if (token == null) return false
+    const info = extractInfoFromToken(token)
+    var date = Date.now()
+    console.log("CALL")
+    
+    if(info.exp < date){
+      callbackMessage('Prosím znovu se přihlašte!')
+    
+      localStorage.removeItem('jwt')  
+      return false 
+    }
+    return true
 
   }
+
+
+
   const isLoggedInAsAdmin = () => {
 
     let token = localStorage.getItem('jwt')
-    let user = extractUserFromToken(token)
+    const info = extractInfoFromToken(token)
+    const user = info.user
     if(user.role === "admin") return true
-    // if (token != null) return true
     return false
 
   }
@@ -56,17 +69,18 @@ const App = () => {
 
     <div className="App">
       <div className="Wrapper">
+     
         <Router>
           <Navbar userName={userName} callbackUsername={callbackUsername} callbackMessage={callbackMessage} />
 
           <Switch>
 
-            <Route path='/login' render={(props) => {
+            <Route exact path='/login' render={(props) => {
               return (
-                <Login  {...props} callbackUsername={callbackUsername} message={message} />
+                <Login  {...props} callbackUsername={callbackUsername} callbackMessage={callbackMessage} message={message} />
               )
             }} />
-            <Route path='/register' render={(props) => {
+            <Route exact path='/register' render={(props) => {
               return (
                 <Register  {...props} callbackMessage={callbackMessage} />
               )
@@ -75,7 +89,7 @@ const App = () => {
               isLoggedIn() ? (
                 <Dashboard {...props} userName={userName} isLoggedInAsAdmin={isLoggedInAsAdmin}/>
               ) : (
-                  <Redirect to="/login" />
+                  <Redirect exact to="/login" />
                 ))} />
           </Switch>
 

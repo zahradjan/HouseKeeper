@@ -13,7 +13,7 @@ class InputExpenses extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.expenseItem.expenseTitle !== this.props.expenseItem.expenseTitle ) {
+        if (prevProps.expenseItem !== this.props.expenseItem ) {
             this.setState({
                 expenseTitle: this.props.expenseItem.expenseTitle,
                 amount: this.props.expenseItem.amount,
@@ -23,6 +23,11 @@ class InputExpenses extends Component {
 
         }
 
+    }
+    componentWillUnmount() {
+        this.setState = ()=>{
+            return;
+        };
     }
 
     handleInput = (e) => {
@@ -61,8 +66,9 @@ class InputExpenses extends Component {
             headers:{Authorization: localStorage.getItem('jwt') }
         })
             .then(() => {
-                
+               
                 this.props.callbackExpenses();
+               
             })
             .catch((err) => {
                 console.log(err);
@@ -79,6 +85,7 @@ class InputExpenses extends Component {
             amount: this.state.amount,
             userName: this.props.userName
         }
+        console.log("Titulek: " + payload.expenseTitle)
 
         this.setState({
             expenseTitle: '',
@@ -92,10 +99,9 @@ class InputExpenses extends Component {
             data: payload,
             headers:{Authorization: localStorage.getItem('jwt') }
         })
-            .then(() => {
-              
+            .then(() => {              
                 this.props.callbackExpenses();
-
+                this.props.expensesChanged();
             })
             .catch((err) => {
                 console.log(err);
@@ -156,7 +162,7 @@ class InputExpenses extends Component {
 
     render() {
 
-        console.log('State: ', this.state);
+        // console.log('State: ', this.state);
 
         return (
 

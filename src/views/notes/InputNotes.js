@@ -31,6 +31,11 @@ class InputNotes extends Component {
         }
 
     }
+    componentWillUnmount() {
+        this.setState = ()=>{
+            return;
+        };
+    }
 
     // componentDidMount(prevProps) {
     //     console.log(this.props.noteItem.noteTitle)
@@ -79,8 +84,8 @@ class InputNotes extends Component {
             headers:{Authorization: localStorage.getItem('jwt') }
         })
             .then(() => {
-
-                // this.props.callbackExpenses();
+                    this.props.callbackNotes()
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -111,7 +116,8 @@ class InputNotes extends Component {
             headers:{Authorization: localStorage.getItem('jwt') }
         })
             .then(() => {
-              
+                
+                this.props.callbackNotes()
                 // this.props.callbackExpenses();
 
             })
