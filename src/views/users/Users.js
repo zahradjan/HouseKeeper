@@ -16,11 +16,11 @@ class Users extends Component {
     componentDidMount = () => {
         this.getUsers();
     }
-    // componentDidUpdate(prevState) {
-    //     if (prevState.expenses !== this.state.expenses) {
-    //         this.getExpense();
-    //     }
-    // }
+    componentDidUpdate(prevState) {
+        if (prevState.users === this.state.users) {
+            this.getUsers();
+        }
+    }
     componentWillUnmount() {
         // fix Warning: Can't perform a React state update on an unmounted component
         this.setState = ()=>{
@@ -49,7 +49,7 @@ class Users extends Component {
             headers:{Authorization: localStorage.getItem('jwt') }
         })
         .then(() => {
-            // this.props.callbackExpenses();
+            this.getUsers()
         })
         .catch((err) => {
             alert(err)
@@ -65,7 +65,7 @@ class Users extends Component {
             headers:{Authorization: localStorage.getItem('jwt') }
         })
         .then(() => {
-            // this.props.callbackExpenses();
+            this.getUsers()
          
         })
         
@@ -80,7 +80,7 @@ class Users extends Component {
         return userName === this.props.userName
     }
 
-    displayExpenses = (users) => {
+    displayUsers = (users) => {
         if (!users.length) return null;
 
       
@@ -131,7 +131,7 @@ class Users extends Component {
                     </thead>
 
                     <tbody>
-                        {this.displayExpenses(this.state.users)}
+                        {this.displayUsers(this.state.users)}
 
 
                     </tbody>

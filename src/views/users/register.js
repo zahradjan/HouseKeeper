@@ -98,7 +98,7 @@ class Register extends Component {
                         Registrovat
                     </button>
                 </form>
-                <p className="lead mt-4">Máte již účet? <Link to="/login" onClick={this.props.callbackMessage('')} > Přihlášení</Link></p>
+                <p className="lead mt-4">Máte již účet? <Link to="/login"  > Přihlášení</Link></p>
             </div>
         </div>
     </div>

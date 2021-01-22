@@ -26,6 +26,7 @@ const App = () => {
     }
   }
   const callbackMessage = (msg) => {
+    console.log('volam')
     setMessage(msg)
   }
   const extractInfoFromToken = (bearer) => {

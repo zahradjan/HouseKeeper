@@ -52,7 +52,7 @@ app.use(
 // // Pouziti flash modulu
 // app.use(flash());
 
-// // Passport inicilizace s použitím session
+// Passport inicilizace s použitím session
 app.use(passport.initialize());
 app.use(passport.session());
 

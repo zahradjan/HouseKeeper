@@ -22,10 +22,16 @@ class Login extends Component {
         this.setState({successfullMessage: this.props.message  })
     }
     componentDidUpdate(prevProps){
-        console.log("volam")
         if(prevProps.successfullMessage !== this.props.successfullMessage){
+           
             this.setState({successfullMessage: this.props.message  })
         }
+    }
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = ()=>{
+            return;
+        };
     }
 
     submit = (event) => {
@@ -93,7 +99,7 @@ class Login extends Component {
                    Nemáte ještě účet <a href="/register">Registrace</a>
                 </p> */}
 
-                        <p className="lead mt-4"> Nemáte ještě účet <Link to="/register">Registrace</Link></p>
+                        <p className="lead mt-4"> Nemáte ještě účet <Link to="/register" onClick={this.props.callbackMessage('')}>Registrace</Link></p>
                     </div>
                 </div>
             </div>

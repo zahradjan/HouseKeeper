@@ -17,7 +17,7 @@ const Dashboard = (props) => {
           <div className="container my-5">
             <Budget userName={props.userName} isLoggedInAsAdmin={props.isLoggedInAsAdmin} />
           </div>
-          {props.isLoggedInAsAdmin() &&<div className="container my-5">
+          {props.isLoggedInAsAdmin &&<div className="container my-5">
             <Users userName={props.userName} />
             </div>}
           <div className="container my-5">
