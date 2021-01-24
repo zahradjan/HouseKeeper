@@ -1,0 +1,43 @@
+{
+  "name": "my-app",
+  "description": "backend express api",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.11.12",
+    "node-pre-gyp": "^0.17.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  },
+  "scripts": {   
+    "client": "cd src && npm start",
+    "dev": "concurrently \"nodemon server.js\" \"npm run client\""
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "identity-obj-proxy": "^3.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
