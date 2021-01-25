@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const path = require('path');
 const app = express();
 const PORT = 4000;
 const methodOverride = require('method-override')
-const axios = require('axios');
 const session = require('express-session');
+const User = require('./models/user')
+const bcrypt = require('bcrypt');
 
 
 const budgetRouter = require('./routes/budget')
@@ -17,43 +17,43 @@ const noteRouter = require('./routes/notes')
 
 // const { ensureAuthenticated } = require('./src/config/auth');
 
-require('dotenv').config({path:'./config/.env'});
+require('dotenv').config({ path: './config/.env' });
 // Passport konfigurace
 require('./config/passport')(passport);
 
 
 
 
-mongoose.connect(`mongodb://${process.env.MONGO_URL_LOCAL}:27017/calculator`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+mongoose.connect(`mongodb://${process.env.MONGO_URL}:27017/calculator`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 
 
 
 mongoose.connection.on('connected', () => {
-    console.log('Mongoose is connected')
+  console.log('Mongoose is connected')
 });
 
 
 
+
+
+
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // Express nastavení session
 app.use(
-    session({
-      secret: 'secret',
-      resave: true,
-      saveUninitialized: true
-    })
-  );
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
 
-
-// // Pouziti flash modulu
-// app.use(flash());
 
 // Passport inicilizace s použitím session
 app.use(passport.initialize());
@@ -65,7 +65,7 @@ app.use(express.json())
 app.use('/budget', budgetRouter)
 app.use('/expense', expenseRouter)
 app.use('/note', noteRouter)
-app.use('/users',userRouter);
+app.use('/users', userRouter);
 
 // app.use(express.static(path.join(__dirname, 'build')));
 
@@ -73,25 +73,46 @@ app.use('/users',userRouter);
 //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
 
-const payload ={name:"admin",email:"admin@admin01", heslo:"admin01", role:"admin"}
 
-axios({
-  port: '4000',
-  url: 'users/register',
-  method: 'POST',
-  data: payload
-})
-  .then(() => {
-    console.log("Admin uspesne pridan!")
-    })
-  .catch((err) => {
-     console.log(err)
-      
-     
-})
-
-
-
+initAdmin()
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
+
+
+
+
+
+
+
+async function initAdmin() {
+  const name = 'sysadmin'
+  const email = 'sysadmin@sysadmin00'
+  const password = 'sysadmin00'
+  const role = 'admin'
+
+  await User.findOne({ email: email }).then(user => {
+    if (user) {
+      return
+
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password,
+        role
+
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+}
 

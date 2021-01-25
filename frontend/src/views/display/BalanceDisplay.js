@@ -16,7 +16,7 @@ class BalanceDisplay extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.amount !== 0 && this.props.amount !== prevState.amount) this.getBudget();
+        if (this.props.amount !== 0 || this.props.amount !== undefined && this.props.amount !== prevState.amount) this.getBudget();
     }
     componentWillUnmount() {
         // fix Warning: Can't perform a React state update on an unmounted component

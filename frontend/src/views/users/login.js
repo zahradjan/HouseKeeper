@@ -35,7 +35,10 @@ class Login extends Component {
 
     submit = (event) => {
         event.preventDefault();
-
+        if ( !this.state.email || !this.state.password){
+            this.setState({ errorMessage: 'Prosím vyplňte všechny údaje!'})
+            return
+        }
         const payload = {
             email: this.state.email,
             password: this.state.password,
@@ -87,13 +90,13 @@ class Login extends Component {
                                 <input value={this.state.password} onChange={this.handleInput} type="password" name="password" autoComplete="current-password" className="form-control"
                                     placeholder="Zadejte heslo" />
                             </div>
-                            <button type="submit" className="btn btn-success btn-block">Login</button>
+                            <button type="submit" className="btn btn-success btn-block">Přihlásit se</button>
                         </form>
                         {/* <p class="lead mt-4">
                    Nemáte ještě účet <a href="/register">Registrace</a>
                 </p> */}
 
-                        <p className="lead mt-4"> Nemáte ještě účet <Link to="/register" onClick={this.props.callbackMessage('')}>Registrace</Link></p>
+                        <p className="lead mt-4"> Nemáte ještě účet? <Link to="/register" onClick={this.props.callbackMessage('')}>Zaregistrujte se!</Link></p>
                     </div>
                 </div>
             </div>

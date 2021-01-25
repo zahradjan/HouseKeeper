@@ -95,7 +95,6 @@ router.post('/register', (req, res) => {
 //POST požadavek pro přihlášení uživatele
 router.post('/login', async (req, res) => {
     const {email, password} = req.body
-    console.log("Rekni mi ten email:"+email)
     User.findOne({email:email}).then(async(user) =>{
         if(!user) return res.status(401).json({msg:"Uživatel nenalezen!"})
         const isValid = await bcrypt.compare(password, user.password)

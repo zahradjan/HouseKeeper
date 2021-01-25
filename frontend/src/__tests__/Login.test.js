@@ -1,5 +1,6 @@
 import Login from '../views/users/login';
 import { render as rtlRender , screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -16,13 +17,12 @@ const render = (ui, {route = '/'} = {}) => {
 }
 
 
-// 2. test 
-// kdyz se logne tak se dostane na dashboard
-
-test('proper navigation with login info', async()=>{
+  test('Login without credentials',()=>{
+    //arrange
     render(<Login callbackMessage={callbackMessage}/>, {route:'/login'})
-    const payload = {email:'admin@admin00', heslo:'admin00'}
-    return axios.post('/users/login',{data:payload}).then((response) => expect(response.data).not.toBeNull());
-
+    //action
+    userEvent.click(screen.getByText('Přihlásit se'))
+    //assert
+    expect(screen.getByText('Prosím vyplňte všechny údaje!')).toBeInTheDocument()
   })
   

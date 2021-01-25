@@ -22,7 +22,7 @@
   },
   "scripts": {   
     "client": "cd src && npm start",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\""
+    "dev": "nodemon server.js"
   },
   "browserslist": {
     "production": [

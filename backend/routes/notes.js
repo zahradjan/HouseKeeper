@@ -57,10 +57,8 @@ router.post('/save', passport.authenticate('jwt',{session:false}), async (req, r
     const newNote = new Note(data);
     newNote.save((error) => {
         if (error) {
-            console.log("Jsem tady")
             res.status(500).json({ msg: 'There was an error' })
         } else {
-            console.log("Jsem tu")
             res.json({
                 msg: 'Succesfully received'
             })
