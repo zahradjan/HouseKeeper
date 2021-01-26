@@ -1,8 +1,7 @@
 
 
-# HouseKeeper <img  width="100" height="100" src="/frontend/public/money-pig.png">
+# <img  width="100" height="100" src="/frontend/public/money-pig.png"> HouseKeeper 
 
-<!-- ![HouseKeeper Logo](/frontend/public/money-pig.png) -->
 
 HouseKeeper is an web app writen in mern stack. Its main purpose is to serve as an budget calculator with expenses and notes display. In order to use Housekeeper you must be registered and logged in. It uses JWT as an authetification strategy. After token expires user is logged out. Whole app can run using docker-compose. 
 
