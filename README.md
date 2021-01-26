@@ -1,4 +1,6 @@
-# HouseKeeper ![HouseKeeper Logo](/frontend/public/money-pig.png)
+
+![HouseKeeper Logo](/frontend/public/money-pig.png)
+# HouseKeeper 
 
 HouseKeeper is an web app writen in mern stack. Its main purpose is to serve as an budget calculator with expenses and notes display. In order to use Housekeeper you must be registered and logged in. It uses JWT as an authetification strategy. After token expires user is logged out. Whole app can run using docker-compose. 
 
@@ -12,7 +14,7 @@ ACCESS_TOKEN_SECRET - generate your secret for jwt token validation
 MONGO_URL - if you running app locally it will be localhost, if in docker-compose it will be mongoDB 
 
 ```
-If you run app locally dont forget to check if proxy in frontend package.json is correct. For docker-compose it will be backend:4000, locall localhost:4000.
+If you run app locally dont forget to check if proxy in frontend package.json is correct. For docker-compose it will be backend:4000, for locall run localhost:4000.
 
 ### Installing
 
@@ -36,7 +38,7 @@ Your app should run on localhost:3000
 Due to lack of time App contains only frontend react tests using Jest.
 
 ```
-npm test
+npm test - in frontend folder
 ```
 ## Deployment
 
