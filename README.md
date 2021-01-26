@@ -1,68 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# HouseKeeper ![HouseKeeper Logo](/frontend/public/money-pig.png)
 
-## Available Scripts
+HouseKeeper is an web app writen in mern stack. Its main purpose is to serve as an budget calculator with expenses and notes display. In order to use Housekeeper you must be registered and logged in. It uses JWT as an authetification strategy. After token expires user is logged out. Whole app can run using docker-compose. 
 
-In the project directory, you can run:
+### Prerequisites
 
-### `npm start`
+To run this app you will need at least docker. Or you can run it locally on your device. For that purpose you will need Node, MongoDB installed on your device. Before running this app create your own .env file for your enviroment variables. Save it in backend/config/.env .
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+In your .env file make sure you have these variables setup
+ACCESS_TOKEN_SECRET - generate your secret for jwt token validation
+MONGO_URL - if you running app locally it will be localhost, if in docker-compose it will be mongoDB 
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+If you run app locally dont forget to check if proxy in frontend package.json is correct. For docker-compose it will be backend:4000, locall localhost:4000.
 
-### `npm test`
+### Installing
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run in it in docker compose simply run docker-compose up --build
 
-### `npm run build`
+```
+docker-compose up --build
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run it locally you need to install all necessary modules in package.json from backend and frontend
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+npm install - in both backend and frontend folder
+npm start - in both backend and frontend folder
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Your app should run on localhost:3000
 
-### `npm run eject`
+## Running the tests
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Due to lack of time App contains only frontend react tests using Jest.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm test
+```
+## Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Add is not made for deployment. It was made as an school project.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Built With
 
-## Learn More
+* [MongoDB](https://www.mongodb.com/) - Database system
+* [Node](https://nodejs.org/en/) - Dependency Management
+* [React](https://reactjs.org) - Frontend framework
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Authors
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+* **John Gardener** - *Whole project* - [ocasusMaximus](https://github.com/ocasusMaximus)
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
