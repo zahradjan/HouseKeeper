@@ -1,5 +1,5 @@
 <p align="center">
-<img  src="/frontend/public/money-pig.png">
+<img width="300px" height="300px" src="/frontend/public/money-pig.png">
 </p>
 
 
@@ -46,7 +46,7 @@ npm test - in frontend folder
 ```
 ## Deployment
 
-Add is not made for deployment. It was made as an school project.
+Add is not made for deployment. It was made as a school project.
 
 ## Built With
 
