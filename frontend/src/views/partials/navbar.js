@@ -6,6 +6,9 @@ class Navbar extends Component {
         userName: ''
     }
     componentDidMount() {
+      
+        if(this.props.userName !== this.state.userName) this.setState({userName: this.props.userName})
+        // console.log(this.state.userName)
         this.props.callbackUsername()
     }
 

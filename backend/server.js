@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 
 
 
-mongoose.connect(`mongodb://${process.env.MONGO_URL}:27017/calculator`, {
+mongoose.connect(`mongodb://${process.env.MONGO_URL_LOCAL}:27017/calculator`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Navbar from '../partials/Navbar'
+
 
 
 
@@ -35,8 +37,8 @@ class Login extends Component {
 
     submit = (event) => {
         event.preventDefault();
-        if ( !this.state.email || !this.state.password){
-            this.setState({ errorMessage: 'Prosím vyplňte všechny údaje!'})
+        if (!this.state.email || !this.state.password) {
+            this.setState({ errorMessage: 'Prosím vyplňte všechny údaje!' })
             return
         }
         const payload = {
@@ -65,40 +67,45 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="row mt-5">
-                <div className="col-md-6 m-auto">
-                    <div className="card card-body">
-                        <h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i> Přihlášení</h1>
+            <div>
+                <Navbar userName={this.props.userName} callbackUsername={this.props.callbackUsername} callbackMessage={this.props.callbackMessage} />
 
-                        {this.state.errorMessage &&
-                            <Alert severity="error" onClose={() => { this.setState({ errorMessage: '' }) }}>
-                                {this.state.errorMessage}
-                            </Alert>
-                        }
-                        {this.state.successfullMessage &&
-                            <Alert severity="success" onClose={() => { this.setState({ successfullMessage: '' }) }}>
-                                {this.state.successfullMessage}
-                            </Alert>
-                        }
-                        <form onSubmit={this.submit} method="POST">
-                            <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <input type="email" onChange={this.handleInput} value={this.state.email} name="email" autoComplete="email" className="form-control" placeholder="Zadejte email" />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Heslo</label>
-                                <input value={this.state.password} onChange={this.handleInput} type="password" name="password" autoComplete="current-password" className="form-control"
-                                    placeholder="Zadejte heslo" />
-                            </div>
-                            <button type="submit" className="btn btn-success btn-block">Přihlásit se</button>
-                        </form>
-                        {/* <p class="lead mt-4">
+                <div className="row mt-5">
+                    <div className="col-md-6 m-auto">
+                        <div className="card card-body">
+                            <h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i> Přihlášení</h1>
+
+                            {this.state.errorMessage &&
+                                <Alert severity="error" onClose={() => { this.setState({ errorMessage: '' }) }}>
+                                    {this.state.errorMessage}
+                                </Alert>
+                            }
+                            {this.state.successfullMessage &&
+                                <Alert severity="success" onClose={() => { this.setState({ successfullMessage: '' }) }}>
+                                    {this.state.successfullMessage}
+                                </Alert>
+                            }
+                            <form onSubmit={this.submit} method="POST">
+                                <div className="form-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input type="email" onChange={this.handleInput} value={this.state.email} name="email" autoComplete="email" className="form-control" placeholder="Zadejte email" />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Heslo</label>
+                                    <input value={this.state.password} onChange={this.handleInput} type="password" name="password" autoComplete="current-password" className="form-control"
+                                        placeholder="Zadejte heslo" />
+                                </div>
+                                <button type="submit" className="btn btn-success btn-block">Přihlásit se</button>
+                            </form>
+                            {/* <p class="lead mt-4">
                    Nemáte ještě účet <a href="/register">Registrace</a>
                 </p> */}
 
-                        <p className="lead mt-4"> Nemáte ještě účet? <Link to="/register" onClick={this.props.callbackMessage('')}>Zaregistrujte se!</Link></p>
+                            <p className="lead mt-4"> Nemáte ještě účet? <Link to="/register" onClick={this.props.callbackMessage('')}>Zaregistrujte se!</Link></p>
+                        </div>
                     </div>
                 </div>
+              
             </div>
         )
     }

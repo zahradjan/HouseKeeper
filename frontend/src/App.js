@@ -1,10 +1,10 @@
 import React from 'react';
 import Dashboard from './views/Dashboard'
 import './App.css';
-import Navbar from './views/partials/navbar'
-import Footer from './views/partials/footer'
-import Login from './views/users/login'
-import Register from './views/users/register'
+import Navbar from './views/partials/Navbar'
+import Footer from './views/partials/Footer'
+import Login from './views/users/Login'
+import Register from './views/users/Register'
 import jwt_decode from 'jwt-decode';
 import {
   BrowserRouter as Router,
@@ -25,6 +25,7 @@ const App = () => {
       setUsername(user.name)
     }
   }
+
   const callbackMessage = (msg) => {
     setMessage(msg)
   }
@@ -34,19 +35,19 @@ const App = () => {
     return decodedToken
   }
 
-  
+
 
   const isLoggedIn = () => {
     let token = localStorage.getItem('jwt')
     if (token == null) return false
     const info = extractInfoFromToken(token)
     var date = Date.now()
-    
-    if(info.exp < date){
+
+    if (info.exp < date) {
       callbackMessage('Prosím znovu se přihlašte!')
-    
-      localStorage.removeItem('jwt')  
-      return false 
+
+      localStorage.removeItem('jwt')
+      return false
     }
     return true
 
@@ -59,7 +60,7 @@ const App = () => {
     let token = localStorage.getItem('jwt')
     const info = extractInfoFromToken(token)
     const user = info.user
-    if(user.role === "admin") return true
+    if (user.role === "admin") return true
     return false
 
   }
@@ -68,9 +69,9 @@ const App = () => {
 
     <div className="App">
       <div className="Wrapper">
-     
+
         <Router>
-          <Navbar userName={userName} callbackUsername={callbackUsername} callbackMessage={callbackMessage} />
+
 
           <Switch>
 
@@ -81,12 +82,12 @@ const App = () => {
             }} />
             <Route exact path='/register' render={(props) => {
               return (
-                <Register  {...props} callbackMessage={callbackMessage} />
+                <Register  {...props} callbackUsername={callbackUsername} callbackMessage={callbackMessage} />
               )
             }} />
             <Route exact path='/' render={(props) => (
               isLoggedIn() ? (
-                <Dashboard {...props} userName={userName} isLoggedInAsAdmin={isLoggedInAsAdmin}/>
+                <Dashboard {...props} userName={userName} callbackUsername={callbackUsername} callbackMessage={callbackMessage} isLoggedInAsAdmin={isLoggedInAsAdmin} />
               ) : (
                   <Redirect exact to="/login" />
                 ))} />
@@ -95,9 +96,7 @@ const App = () => {
 
         </Router>
       </div>
-
       <Footer />
-     
     </div>
 
 
