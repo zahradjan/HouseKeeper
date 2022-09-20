@@ -58,5 +58,5 @@ Add is not made for deployment. It was made as a school project.
 
 ## Authors
 
-* **John Gardener** - *Whole project* - [ocasusMaximus](https://github.com/ocasusMaximus)
+* **Jan Zahradník** - *Whole project* - [zahradjan](https://github.com/zahradjan)
 
